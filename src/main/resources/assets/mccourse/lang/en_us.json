@@ -1,4 +1,11 @@
 {
   "item.mccourse.alexandrite": "Alexandrite",
-  "item.mccourse.raw_alexandrite": "Raw Alexandrite"
+  "item.mccourse.raw_alexandrite": "Raw Alexandrite",
+
+  "block.mccourse.alexandrite_block": "Alexandrite Block",
+  "block.mccourse.raw_alexandrite_block": "Raw Alexandrite Block",
+  "block.mccourse.alexandrite_ore": "Alexandrite Ore",
+  "block.mccourse.deepslate_alexandrite_ore": "Deepslate Alexandrite Ore",
+  "block.mccourse.end_stone_alexandrite_ore": "End Stone Alexandrite Ore",
+  "block.mccourse.nether_alexandrite_ore": "Nether Alexandrite Ore"
 }
