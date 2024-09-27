@@ -2,6 +2,7 @@ package net.alexyang.mccourse;
 
 import com.mojang.logging.LogUtils;
 import net.alexyang.mccourse.block.ModBlocks;
+import net.alexyang.mccourse.item.ModCreativeModeTabs;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -31,6 +32,8 @@ public class MCCourseMod {
         ModItems.register(modEventBus);
 
         ModBlocks.register(modEventBus);
+
+        ModCreativeModeTabs.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
