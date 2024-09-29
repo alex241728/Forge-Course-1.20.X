@@ -30,6 +30,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.DEEPSLATE_ALEXANDRITE_ORE.get());
                         output.accept(ModBlocks.END_STONE_ALEXANDRITE_ORE.get());
                         output.accept(ModBlocks.NETHER_ALEXANDRITE_ORE.get());
+
+                        output.accept(ModItems.METAL_DETECTOR.get());
                     }).
                     build()
     );

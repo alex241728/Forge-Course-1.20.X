@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.item.ModCreativeModeTabs;
 import net.alexyang.mccourse.item.ModItems;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,6 +61,14 @@ public class MCCourseMod {
             event.accept(ModBlocks.DEEPSLATE_ALEXANDRITE_ORE);
             event.accept(ModBlocks.END_STONE_ALEXANDRITE_ORE);
             event.accept(ModBlocks.NETHER_ALEXANDRITE_ORE);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(ModItems.METAL_DETECTOR);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.SOUND_BLOCK);
         }
     }
 

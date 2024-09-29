@@ -1,6 +1,7 @@
 package net.alexyang.mccourse.block;
 
 import net.alexyang.mccourse.MCCourseMod;
+import net.alexyang.mccourse.block.custom.SoundBlock;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -27,7 +28,9 @@ public class ModBlocks {
                     mapColor(MapColor.WARPED_WART_BLOCK).
                     instrument(NoteBlockInstrument.BASEDRUM).
                     requiresCorrectToolForDrops().
-                    strength(5.0F, 6.0F)));
+                    strength(5.0F, 6.0F)
+            )
+    );
 
     public static final RegistryObject<Block> RAW_ALEXANDRITE_BLOCK = registerBlock(
             "raw_alexandrite_block",
@@ -36,7 +39,8 @@ public class ModBlocks {
                     mapColor(MapColor.WARPED_STEM).
                     instrument(NoteBlockInstrument.BASEDRUM).
                     requiresCorrectToolForDrops().
-                    strength(5.0F, 6.0F))
+                    strength(5.0F, 6.0F)
+            )
     );
 
     public static final RegistryObject<Block> ALEXANDRITE_ORE = registerBlock(
@@ -46,7 +50,8 @@ public class ModBlocks {
                     mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).
                     requiresCorrectToolForDrops().
-                    strength(3.0F, 3.0F))
+                    strength(3.0F, 3.0F)
+            )
     );
 
     public static final RegistryObject<Block> DEEPSLATE_ALEXANDRITE_ORE = registerBlock(
@@ -54,7 +59,8 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.
                     ofFullCopy(ALEXANDRITE_ORE.get()).
                     mapColor(MapColor.DEEPSLATE).
-                    strength(4.5F, 3.0F).
+                    strength(4.5F, 3.0F
+                    ).
                     sound(SoundType.DEEPSLATE))
     );
 
@@ -63,7 +69,8 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.
                     ofFullCopy(ALEXANDRITE_ORE.get()).
                     mapColor(MapColor.SAND).
-                    strength(3.0F, 9.0F))
+                    strength(3.0F, 9.0F)
+            )
     );
 
     public static final RegistryObject<Block> NETHER_ALEXANDRITE_ORE = registerBlock(
@@ -74,7 +81,19 @@ public class ModBlocks {
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
                     .strength(3.0F, 3.0F)
-                    .sound(SoundType.NETHER_ORE)));
+                    .sound(SoundType.NETHER_ORE)
+            )
+    );
+
+    public static final RegistryObject<Block> SOUND_BLOCK = registerBlock("sound_block",
+            () -> new SoundBlock(BlockBehaviour.Properties.
+                    of().
+                    mapColor(MapColor.METAL).
+                    instrument(NoteBlockInstrument.BASEDRUM).
+                    requiresCorrectToolForDrops().
+                    strength(5.0F, 6.0F)
+            )
+    );
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

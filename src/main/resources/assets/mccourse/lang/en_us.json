@@ -1,6 +1,7 @@
 {
   "item.mccourse.alexandrite": "Alexandrite",
   "item.mccourse.raw_alexandrite": "Raw Alexandrite",
+  "item.mccourse.metal_detector": "Metal Detector",
 
   "block.mccourse.alexandrite_block": "Alexandrite Block",
   "block.mccourse.raw_alexandrite_block": "Raw Alexandrite Block",
@@ -8,6 +9,9 @@
   "block.mccourse.deepslate_alexandrite_ore": "Deepslate Alexandrite Ore",
   "block.mccourse.end_stone_alexandrite_ore": "End Stone Alexandrite Ore",
   "block.mccourse.nether_alexandrite_ore": "Nether Alexandrite Ore",
+  "block.mccourse.sound_block": "Sound Block",
 
-  "creativetab.course_tab": "Course Tab"
+  "creativetab.course_tab": "Course Tab",
+
+  "item.mccourse.metal_detector.no_valuables": "No Valuables Found."
 }
