@@ -15,5 +15,9 @@
 
   "creativetab.course_tab": "Course Tab",
 
-  "item.mccourse.metal_detector.no_valuables": "No Valuables Found."
+  "item.mccourse.metal_detector.no_valuables": "No Valuables Found.",
+
+  "tooltip.mccourse.metal_detector.tooltip.shift": "Right click on Blocks to find valuables!",
+  "tooltip.mccourse.metal_detector.tooltip": "Press §eShift§r for more information.",
+  "tooltip.mccourse.sound_block": "Play nice sounds when walking or right clicking."
 }
