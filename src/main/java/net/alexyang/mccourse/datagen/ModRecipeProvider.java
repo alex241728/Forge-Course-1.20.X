@@ -3,6 +3,7 @@ package net.alexyang.mccourse.datagen;
 import net.alexyang.mccourse.MCCourseMod;
 import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.item.ModItems;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -33,6 +34,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 "alexandrite", "alexandrite", "alexandrite"
         );
 
+        slabBuilder(RecipeCategory.MISC, ModBlocks.ALEXANDRITE_SLAB.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+
+        stairBuilder(ModBlocks.ALEXANDRITE_STAIRS.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+
         nineBlockStorageRecipes(
                 recipeOutput, RecipeCategory.MISC, ModItems.RAW_ALEXANDRITE.get(), RecipeCategory.MISC,
                 ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), "raw_alexandrite_block", "alexandrite",
@@ -49,6 +54,20 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 100, "alexandrite"
         );
+    }
+
+    private static void stairBuilder(ItemLike pStairs, ItemLike pItem, @NotNull RecipeOutput recipeOutput) {
+        RecipeProvider.stairBuilder(pStairs, Ingredient.of(pItem)).unlockedBy(getHasName(pItem),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pItem)).save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pStairs) + "_from_" + getItemName(pItem)
+                );
+    }
+
+    private static void slabBuilder(RecipeCategory pCategory, ItemLike pSlab, ItemLike pItem,
+                                    @NotNull RecipeOutput recipeOutput) {
+        RecipeProvider.slabBuilder(pCategory, pSlab, Ingredient.of(pItem)).unlockedBy(getHasName(pItem),
+                InventoryChangeTrigger.TriggerInstance.hasItems(pItem)
+        ).save(recipeOutput, MCCourseMod.MOD_ID + ":" + getItemName(pSlab) + "_from_" + getItemName(pItem));
     }
 
     private static void nineBlockStorageRecipes(RecipeOutput pRecipeOutput, RecipeCategory pUnpackedCategory,
