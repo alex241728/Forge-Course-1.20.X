@@ -1,10 +1,10 @@
 package net.alexyang.mccourse.datagen;
 
-import net.alexyang.mccourse.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,12 +15,12 @@ public class ModItemTagGenerator extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         // Add Item Tags Here
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Item Tags";
     }
 }
