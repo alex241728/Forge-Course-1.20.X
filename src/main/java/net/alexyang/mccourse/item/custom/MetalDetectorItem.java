@@ -1,5 +1,6 @@
 package net.alexyang.mccourse.item.custom;
 
+import net.alexyang.mccourse.util.ModTags;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -44,14 +45,16 @@ public class MetalDetectorItem extends Item {
                 if(isValuableBlock(blockState)) {
                     outputValuableCoordinates(positionClicked.below(i), player, blockState.getBlock());
                     foundBlock = true;
-
-                    break;
                 }
             }
 
             if(!foundBlock) {
                 outputNoValuableFound(player);
             }
+
+            player.sendSystemMessage(Component.literal(
+                    "=====================================================")
+            );
         }
 
         if (itemStack.isEmpty()) {
@@ -86,7 +89,6 @@ public class MetalDetectorItem extends Item {
     }
 
     private boolean isValuableBlock(BlockState blockState) {
-        return blockState.is(Blocks.IRON_ORE) || blockState.is(Blocks.DEEPSLATE_IRON_ORE)
-                || blockState.is(Blocks.DIAMOND_ORE);
+        return blockState.is(ModTags.Blocks.METAL_DETECTOR_VALUABLES);
     }
 }
