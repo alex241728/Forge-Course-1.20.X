@@ -3,8 +3,6 @@ package net.alexyang.mccourse.datagen;
 import net.alexyang.mccourse.MCCourseMod;
 import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.item.ModItems;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -53,17 +51,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         );
     }
 
-    private static void nineBlockStorageRecipes(
-            RecipeOutput pRecipeOutput,
-            RecipeCategory pUnpackedCategory,
-            ItemLike pUnpacked,
-            RecipeCategory pPackedCategory,
-            ItemLike pPacked,
-            String pPackedName,
-            @Nullable String pPackedGroup,
-            String pUnpackedName,
-            @Nullable String pUnpackedGroup
-    ) {
+    private static void nineBlockStorageRecipes(RecipeOutput pRecipeOutput, RecipeCategory pUnpackedCategory,
+                                                ItemLike pUnpacked, RecipeCategory pPackedCategory, ItemLike pPacked,
+                                                String pPackedName, @Nullable String pPackedGroup, String pUnpackedName,
+                                                @Nullable String pUnpackedGroup) {
         ShapelessRecipeBuilder.shapeless(pUnpackedCategory, pUnpacked, 9)
                 .requires(pPacked)
                 .group(pUnpackedGroup)
@@ -80,31 +71,29 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         pUnpackedName));
     }
 
-    protected static void oreSmelting(
-            RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-            float pExperience, int pCookingTime, String pGroup
-    ) {
+    protected static void oreSmelting(RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory,
+                                      ItemLike pResult, float pExperience, int pCookingTime, String pGroup) {
         oreCooking(
                 pRecipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory,
                 pResult, pExperience, pCookingTime, pGroup, "_from_smelting"
         );
     }
 
-    protected static void oreBlasting(
-            RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-            float pExperience, int pCookingTime, String pGroup
-    ) {
+    protected static void oreBlasting(RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory,
+                                      ItemLike pResult, float pExperience, int pCookingTime, String pGroup) {
         oreCooking(
                 pRecipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory,
                 pResult, pExperience, pCookingTime, pGroup, "_from_blasting"
         );
     }
 
-    private static <T extends AbstractCookingRecipe> void oreCooking(
-            RecipeOutput pRecipeOutput, RecipeSerializer<T> pSerializer,
-            AbstractCookingRecipe.Factory<T> pRecipeFactory, List<ItemLike> pIngredients, RecipeCategory pCategory,
-            ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pSuffix
-    ) {
+    private static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput pRecipeOutput,
+                                                                     RecipeSerializer<T> pSerializer,
+                                                                     AbstractCookingRecipe.Factory<T> pRecipeFactory,
+                                                                     List<ItemLike> pIngredients,
+                                                                     RecipeCategory pCategory, ItemLike pResult,
+                                                                     float pExperience, int pCookingTime,
+                                                                     String pGroup, String pSuffix) {
         for (ItemLike itemlike : pIngredients) {
             SimpleCookingRecipeBuilder.generic(
                             Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pSerializer,
