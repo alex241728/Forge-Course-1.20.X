@@ -1,10 +1,12 @@
 {
-  "replace": false,
   "values": [
     "mccourse:alexandrite_block",
     "mccourse:raw_alexandrite_block",
     "mccourse:alexandrite_ore",
     "mccourse:deepslate_alexandrite_ore",
-    "mccourse:end_stone_alexandrite_ore"
+    "mccourse:end_stone_alexandrite_ore",
+    "mccourse:alexandrite_stairs",
+    "mccourse:alexandrite_slab",
+    "mccourse:sound_block"
   ]
 }

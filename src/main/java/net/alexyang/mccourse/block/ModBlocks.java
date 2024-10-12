@@ -5,8 +5,7 @@ import net.alexyang.mccourse.block.custom.SoundBlock;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -30,6 +29,17 @@ public class ModBlocks {
                     requiresCorrectToolForDrops().
                     strength(5.0F, 6.0F)
             )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_STAIRS = registerBlock("alexandrite_stairs",
+            () -> new StairBlock(
+                    ModBlocks.ALEXANDRITE_BLOCK.get().defaultBlockState(),
+                    BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALEXANDRITE_BLOCK.get())
+            )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_SLAB = registerBlock("alexandrite_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALEXANDRITE_BLOCK.get()))
     );
 
     public static final RegistryObject<Block> RAW_ALEXANDRITE_BLOCK = registerBlock(
