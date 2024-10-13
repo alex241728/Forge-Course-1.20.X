@@ -30,20 +30,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
         nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
-                RecipeCategory.MISC, ModBlocks.ALEXANDRITE_BLOCK.get(), "alexandrite_block",
+                RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALEXANDRITE_BLOCK.get(), "alexandrite_block",
                 "alexandrite", "alexandrite", "alexandrite"
         );
 
-        slabBuilder(RecipeCategory.MISC, ModBlocks.ALEXANDRITE_SLAB.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+        slabBuilder(ModBlocks.ALEXANDRITE_SLAB.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
 
         stairBuilder(ModBlocks.ALEXANDRITE_STAIRS.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
 
         nineBlockStorageRecipes(
-                recipeOutput, RecipeCategory.MISC, ModItems.RAW_ALEXANDRITE.get(), RecipeCategory.MISC,
+                recipeOutput, RecipeCategory.MISC, ModItems.RAW_ALEXANDRITE.get(), RecipeCategory.BUILDING_BLOCKS,
                 ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), "raw_alexandrite_block", "alexandrite",
                 "raw_alexandrite", "alexandrite"
         );
-
 
         oreSmelting(
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
@@ -63,9 +62,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 );
     }
 
-    private static void slabBuilder(RecipeCategory pCategory, ItemLike pSlab, ItemLike pItem,
+    private static void slabBuilder(ItemLike pSlab, ItemLike pItem,
                                     @NotNull RecipeOutput recipeOutput) {
-        RecipeProvider.slabBuilder(pCategory, pSlab, Ingredient.of(pItem)).unlockedBy(getHasName(pItem),
+        RecipeProvider.slabBuilder(RecipeCategory.BUILDING_BLOCKS, pSlab, Ingredient.of(pItem)).unlockedBy(getHasName(pItem),
                 InventoryChangeTrigger.TriggerInstance.hasItems(pItem)
         ).save(recipeOutput, MCCourseMod.MOD_ID + ":" + getItemName(pSlab) + "_from_" + getItemName(pItem));
     }
