@@ -32,9 +32,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 (SlabBlock) ModBlocks.ALEXANDRITE_SLAB.get(), blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()),
                 blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get())
         );
+        stairsBlock((StairBlock) ModBlocks.RAW_ALEXANDRITE_STAIRS.get(), blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()));
+        slabBlock((SlabBlock) ModBlocks.RAW_ALEXANDRITE_SLAB.get(), blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()),
+                blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get())
+        );
 
         blockItem(ModBlocks.ALEXANDRITE_STAIRS);
         blockItem(ModBlocks.ALEXANDRITE_SLAB);
+        blockItem(ModBlocks.RAW_ALEXANDRITE_STAIRS);
+        blockItem(ModBlocks.RAW_ALEXANDRITE_SLAB);
     }
 
     private void blockItem(RegistryObject<Block> blockRegistryObject) {

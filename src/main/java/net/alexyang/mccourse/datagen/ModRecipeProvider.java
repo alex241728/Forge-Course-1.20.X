@@ -44,6 +44,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 "raw_alexandrite", "alexandrite"
         );
 
+        slabBuilder(ModBlocks.RAW_ALEXANDRITE_SLAB.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), recipeOutput);
+
+        stairBuilder(ModBlocks.RAW_ALEXANDRITE_STAIRS.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), recipeOutput);
+
         oreSmelting(
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 200, "alexandrite"

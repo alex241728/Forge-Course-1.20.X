@@ -53,6 +53,17 @@ public class ModBlocks {
             )
     );
 
+    public static final RegistryObject<Block> RAW_ALEXANDRITE_STAIRS = registerBlock("raw_alexandrite_stairs",
+            () -> new StairBlock(
+                    ModBlocks.RAW_ALEXANDRITE_BLOCK.get().defaultBlockState(),
+                    BlockBehaviour.Properties.ofFullCopy(ModBlocks.RAW_ALEXANDRITE_BLOCK.get())
+            )
+    );
+
+    public static final RegistryObject<Block> RAW_ALEXANDRITE_SLAB = registerBlock("raw_alexandrite_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()))
+    );
+
     public static final RegistryObject<Block> ALEXANDRITE_ORE = registerBlock(
             "alexandrite_ore",
             () -> new Block(BlockBehaviour.Properties.
