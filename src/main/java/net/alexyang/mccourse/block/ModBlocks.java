@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -41,6 +42,23 @@ public class ModBlocks {
     public static final RegistryObject<Block> ALEXANDRITE_SLAB = registerBlock("alexandrite_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALEXANDRITE_BLOCK.get()))
     );
+
+    public static final RegistryObject<Block> ALEXANDRITE_PRESSURE_PLATE = registerBlock(
+            "alexandrite_pressure_plate", () -> new PressurePlateBlock(ModBlockSetType.ALEXANDRITE,
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).forceSolidOn().
+                            requiresCorrectToolForDrops().noCollission().strength(0.5F).
+                            pushReaction(PushReaction.DESTROY).sound(SoundType.METAL)
+            )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_BUTTON = registerBlock("alexandrite_button",
+            () -> new ButtonBlock(ModBlockSetType.ALEXANDRITE, 10,
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).forceSolidOn().
+                            requiresCorrectToolForDrops().noCollission().strength(0.5F).
+                            pushReaction(PushReaction.DESTROY).sound(SoundType.METAL)
+            )
+    );
+
 
     public static final RegistryObject<Block> RAW_ALEXANDRITE_BLOCK = registerBlock(
             "raw_alexandrite_block",

@@ -23,6 +23,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.RAW_ALEXANDRITE_BLOCK.get());
         this.dropSelf(ModBlocks.RAW_ALEXANDRITE_STAIRS.get());
         this.dropSelf(ModBlocks.SOUND_BLOCK.get());
+        this.dropSelf(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.ALEXANDRITE_BUTTON.get());
 
         this.add(
                 ModBlocks.ALEXANDRITE_ORE.get(), block -> createOreDrop(
