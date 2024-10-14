@@ -26,6 +26,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.ALEXANDRITE_BLOCK.get(),
                 ModBlocks.ALEXANDRITE_STAIRS.get(), ModBlocks.ALEXANDRITE_SLAB.get(),
+                ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get(), ModBlocks.ALEXANDRITE_FENCE.get(),
+                ModBlocks.ALEXANDRITE_FENCE_GATE.get(), ModBlocks.ALEXANDRITE_WALL.get(),
                 ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), ModBlocks.RAW_ALEXANDRITE_STAIRS.get(),
                 ModBlocks.RAW_ALEXANDRITE_SLAB.get(), ModBlocks.ALEXANDRITE_ORE.get(),
                 ModBlocks.DEEPSLATE_ALEXANDRITE_ORE.get(), ModBlocks.END_STONE_ALEXANDRITE_ORE.get(),
@@ -41,6 +43,14 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 ModBlocks.END_STONE_ALEXANDRITE_ORE.get(), ModBlocks.SOUND_BLOCK.get()
         );
 
-        this.tag(BlockTags.NEEDS_DIAMOND_TOOL);
+        this.tag(BlockTags.PRESSURE_PLATES).add(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get());
+
+        this.tag(BlockTags.BUTTONS).add(ModBlocks.ALEXANDRITE_BUTTON.get());
+
+        this.tag(BlockTags.FENCES).add(ModBlocks.ALEXANDRITE_FENCE.get());
+
+        this.tag(BlockTags.FENCE_GATES).add(ModBlocks.ALEXANDRITE_FENCE_GATE.get());
+
+        this.tag(BlockTags.WALLS).add(ModBlocks.ALEXANDRITE_WALL.get());
     }
 }

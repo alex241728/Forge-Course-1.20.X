@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -53,12 +54,38 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> ALEXANDRITE_BUTTON = registerBlock("alexandrite_button",
             () -> new ButtonBlock(ModBlockSetType.ALEXANDRITE, 10,
-                    BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).forceSolidOn().
-                            requiresCorrectToolForDrops().noCollission().strength(0.5F).
-                            pushReaction(PushReaction.DESTROY).sound(SoundType.METAL)
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).forceSolidOn().noCollission()
+                            .strength(0.5F).pushReaction(PushReaction.DESTROY).sound(SoundType.METAL)
             )
     );
 
+    public static final RegistryObject<Block> ALEXANDRITE_FENCE = registerBlock("alexandrite_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WARPED_WART_BLOCK)
+                    .forceSolidOn()
+                    .requiresCorrectToolForDrops()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+            )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_FENCE_GATE = registerBlock("alexandrite_fence_gate",
+            () -> new FenceGateBlock(ModWoodType.ALEXANDRITE, BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WARPED_WART_BLOCK)
+                    .forceSolidOn()
+                    .requiresCorrectToolForDrops()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+            )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_WALL = registerBlock("alexandrite_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALEXANDRITE_BLOCK.get()).forceSolidOn()
+                    .requiresCorrectToolForDrops()
+            )
+    );
 
     public static final RegistryObject<Block> RAW_ALEXANDRITE_BLOCK = registerBlock(
             "raw_alexandrite_block",

@@ -6,6 +6,11 @@
   "item.mccourse.peat_brick": "Peat Brick",
 
   "block.mccourse.alexandrite_block": "Alexandrite Block",
+  "block.mccourse.alexandrite_pressure_plate": "Alexandrite Pressure Plate",
+  "block.mccourse.alexandrite_button": "Alexandrite Button",
+  "block.mccourse.alexandrite_fence": "Alexandrite Fence",
+  "block.mccourse.alexandrite_fence_gate": "Alexandrite Fence Gate",
+  "block.mccourse.alexandrite_wall": "Alexandrite Wall",
   "block.mccourse.raw_alexandrite_block": "Raw Alexandrite Block",
   "block.mccourse.alexandrite_ore": "Alexandrite Ore",
   "block.mccourse.deepslate_alexandrite_ore": "Deepslate Alexandrite Ore",
@@ -16,8 +21,6 @@
   "block.mccourse.alexandrite_slab": "Alexandrite Slab",
   "block.mccourse.raw_alexandrite_stairs": "Raw Alexandrite Stairs",
   "block.mccourse.raw_alexandrite_slab": "Raw Alexandrite Slab",
-  "block.mccourse.alexandrite_pressure_plate": "Alexandrite Pressure Plate",
-  "block.mccourse.alexandrite_button": "Alexandrite Button",
 
   "creativetab.course_tab": "Course Tab",
 

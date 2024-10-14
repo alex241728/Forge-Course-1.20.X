@@ -27,6 +27,11 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.KOHLRABI.get());
 
                         output.accept(ModBlocks.ALEXANDRITE_BLOCK.get());
+                        output.accept(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get());
+                        output.accept(ModBlocks.ALEXANDRITE_BUTTON.get());
+                        output.accept(ModBlocks.ALEXANDRITE_FENCE.get());
+                        output.accept(ModBlocks.ALEXANDRITE_FENCE_GATE.get());
+                        output.accept(ModBlocks.ALEXANDRITE_WALL.get());
                         output.accept(ModBlocks.ALEXANDRITE_ORE.get());
                         output.accept(ModBlocks.RAW_ALEXANDRITE_BLOCK.get());
                         output.accept(ModBlocks.DEEPSLATE_ALEXANDRITE_ORE.get());
@@ -37,8 +42,6 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.ALEXANDRITE_SLAB.get());
                         output.accept(ModBlocks.RAW_ALEXANDRITE_STAIRS.get());
                         output.accept(ModBlocks.RAW_ALEXANDRITE_SLAB.get());
-                        output.accept(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get());
-                        output.accept(ModBlocks.ALEXANDRITE_BUTTON.get());
                     }).
                     build()
     );
