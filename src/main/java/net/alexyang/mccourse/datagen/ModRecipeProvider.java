@@ -48,6 +48,22 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         stairBuilder(ModBlocks.RAW_ALEXANDRITE_STAIRS.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), recipeOutput);
 
+        pressurePlateBuilder(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get(), ModBlocks.ALEXANDRITE_BLOCK.get(),
+                recipeOutput
+        );
+
+        buttonBuilder(ModBlocks.ALEXANDRITE_BUTTON.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+
+        nonWoodenFenceBuilder(ModBlocks.ALEXANDRITE_FENCE.get(), ModBlocks.ALEXANDRITE_BLOCK.get(),
+                ModItems.ALEXANDRITE.get(), recipeOutput
+        );
+
+        nonWoodenFenceGateBuilder(ModBlocks.ALEXANDRITE_FENCE_GATE.get(), ModBlocks.ALEXANDRITE_BLOCK.get(),
+                ModItems.ALEXANDRITE.get(), recipeOutput
+        );
+
+        wallBuilder(ModBlocks.ALEXANDRITE_WALL.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+
         oreSmelting(
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 200, "alexandrite"
@@ -57,12 +73,48 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 100, "alexandrite"
         );
+    }
 
-        pressurePlateBuilder(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get(), ModBlocks.ALEXANDRITE_BLOCK.get(),
-                recipeOutput
-        );
+    private static void wallBuilder(ItemLike pWall, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, pWall, 6)
+                .define('#', pMaterial)
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_" + getItemName(pMaterial),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial)
+                ).save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pWall) + "_from_" + getItemName(pMaterial)
+                );
+    }
 
-        buttonBuilder(ModBlocks.ALEXANDRITE_BUTTON.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+    private static void nonWoodenFenceGateBuilder(ItemLike pFenceGate, ItemLike pMaterial, ItemLike pItem,
+                                                  @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, pFenceGate, 2)
+                .define('#', pItem)
+                .define('W', pMaterial)
+                .pattern("#W#")
+                .pattern("#W#")
+                .unlockedBy("has_" + getItemName(pMaterial) + "_and_" + getItemName(pItem),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, pItem)
+                ).save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pFenceGate) + "_from_" + getItemName(pMaterial)
+                                + "_and_" + getItemName(pItem)
+                );
+    }
+
+    private static void nonWoodenFenceBuilder(ItemLike pFence, ItemLike pMaterial, ItemLike pItem,
+                                              @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, pFence, 6)
+                .define('W', pMaterial)
+                .define('#', pItem)
+                .pattern("W#W")
+                .pattern("W#W")
+                .unlockedBy("has_" + getItemName(pMaterial) + "_and_" + getItemName(pItem),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, pItem)
+                ).save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pFence) + "_from_" + getItemName(pMaterial)
+                                + "_and_" + getItemName(pItem)
+                );
     }
 
     private static void buttonBuilder(ItemLike pButton, ItemLike pItem, @NotNull RecipeOutput recipeOutput) {
@@ -127,7 +179,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     protected static void oreBlasting(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients,
                                       @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult, float pExperience,
-                                      int pCookingTime, String pGroup) {
+                                      int pCookingTime, @NotNull String pGroup) {
         oreCooking(
                 pRecipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory,
                 pResult, pExperience, pCookingTime, pGroup, "_from_blasting"
