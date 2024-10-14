@@ -58,6 +58,9 @@ public class MCCourseMod {
             event.accept(ModBlocks.ALEXANDRITE_BLOCK);
             event.accept(ModBlocks.ALEXANDRITE_SLAB);
             event.accept(ModBlocks.ALEXANDRITE_STAIRS);
+            event.accept(ModBlocks.ALEXANDRITE_FENCE);
+            event.accept(ModBlocks.ALEXANDRITE_FENCE_GATE);
+            event.accept(ModBlocks.ALEXANDRITE_WALL);
             event.accept(ModBlocks.RAW_ALEXANDRITE_BLOCK);
             event.accept(ModBlocks.RAW_ALEXANDRITE_SLAB);
             event.accept(ModBlocks.RAW_ALEXANDRITE_STAIRS);
