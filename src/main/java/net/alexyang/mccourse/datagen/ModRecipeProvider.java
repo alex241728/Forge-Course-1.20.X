@@ -74,6 +74,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         wallBuilder(ModBlocks.RAW_ALEXANDRITE_WALL.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), recipeOutput);
 
+        doorBuilder(ModBlocks.ALEXANDRITE_DOOR.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
+        trapdoorBuilder(ModBlocks.ALEXANDRITE_TRAPDOOR.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
         oreSmelting(
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 200, "alexandrite"
@@ -83,6 +87,22 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 100, "alexandrite"
         );
+    }
+
+    private static void trapdoorBuilder(ItemLike pTrapdoor, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        RecipeProvider.trapdoorBuilder(pTrapdoor, Ingredient.of(pMaterial))
+                .unlockedBy(getHasName(pMaterial), InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial))
+                .save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pTrapdoor) + "_from_" + getItemName(pMaterial)
+                );
+    }
+
+    private static void doorBuilder(ItemLike pDoor, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        RecipeProvider.doorBuilder(pDoor, Ingredient.of(pMaterial))
+                .unlockedBy(getHasName(pMaterial), InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial))
+                .save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pDoor) + "_from_" + getItemName(pMaterial)
+                );
     }
 
     private static void wallBuilder(ItemLike pWall, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {

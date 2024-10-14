@@ -33,6 +33,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         wallItem(ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_BLOCK);
         wallItem(ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK);
+
+        simpleBlockItem(ModBlocks.ALEXANDRITE_DOOR);
     }
 
     private void fenceItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
@@ -61,6 +63,12 @@ public class ModItemModelProvider extends ItemModelProvider {
                         new ResourceLocation(MCCourseMod.MOD_ID,
                                 "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath())
                 );
+    }
+
+    private ItemModelBuilder simpleBlockItem(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(MCCourseMod.MOD_ID,"item/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

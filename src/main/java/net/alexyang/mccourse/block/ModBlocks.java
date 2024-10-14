@@ -7,6 +7,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -83,6 +84,21 @@ public class ModBlocks {
     public static final RegistryObject<Block> ALEXANDRITE_WALL = registerBlock("alexandrite_wall",
             () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALEXANDRITE_BLOCK.get()).forceSolidOn()
                     .requiresCorrectToolForDrops()
+            )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_DOOR = registerBlock("alexandrite_door",
+            () -> new DoorBlock(ModBlockSetType.ALEXANDRITE,
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()
+                            .strength(5.0F).noOcclusion().pushReaction(PushReaction.DESTROY)
+            )
+    );
+
+    public static final RegistryObject<Block> ALEXANDRITE_TRAPDOOR = registerBlock("alexandrite_trapdoor",
+            () -> new TrapDoorBlock(ModBlockSetType.ALEXANDRITE,
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()
+                            .strength(5.0F).noOcclusion()
+                            .isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
             )
     );
 
