@@ -57,6 +57,29 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 100, "alexandrite"
         );
+
+        pressurePlateBuilder(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get(), ModBlocks.ALEXANDRITE_BLOCK.get(),
+                recipeOutput
+        );
+
+        buttonBuilder(ModBlocks.ALEXANDRITE_BUTTON.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+    }
+
+    private static void buttonBuilder(ItemLike pButton, ItemLike pItem, @NotNull RecipeOutput recipeOutput) {
+        RecipeProvider.buttonBuilder(pButton, Ingredient.of(pItem)).
+                unlockedBy(getHasName(pItem), InventoryChangeTrigger.TriggerInstance.hasItems(pItem)).
+                save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pButton) + "_from_" + getItemName(pItem)
+                );
+    }
+
+    private static void pressurePlateBuilder(ItemLike pPressurePlate, ItemLike pItem,
+                                             @NotNull RecipeOutput recipeOutput) {
+        RecipeProvider.pressurePlateBuilder(RecipeCategory.REDSTONE, pPressurePlate, Ingredient.of(pItem)).
+                unlockedBy(getHasName(pItem), InventoryChangeTrigger.TriggerInstance.hasItems(pItem)).
+                save(recipeOutput,
+                        MCCourseMod.MOD_ID + ":" + getItemName(pPressurePlate) + "_from_" + getItemName(pItem)
+                );
     }
 
     private static void stairBuilder(ItemLike pStairs, ItemLike pItem, @NotNull RecipeOutput recipeOutput) {
