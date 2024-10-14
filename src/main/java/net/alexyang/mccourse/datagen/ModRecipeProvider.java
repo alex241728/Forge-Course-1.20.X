@@ -58,11 +58,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ModItems.ALEXANDRITE.get(), recipeOutput
         );
 
+        nonWoodenFenceBuilder(ModBlocks.RAW_ALEXANDRITE_FENCE.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(),
+                ModItems.RAW_ALEXANDRITE.get(), recipeOutput
+        );
+
         nonWoodenFenceGateBuilder(ModBlocks.ALEXANDRITE_FENCE_GATE.get(), ModBlocks.ALEXANDRITE_BLOCK.get(),
                 ModItems.ALEXANDRITE.get(), recipeOutput
         );
 
+        nonWoodenFenceGateBuilder(ModBlocks.RAW_ALEXANDRITE_FENCE_GATE.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(),
+                ModItems.RAW_ALEXANDRITE.get(), recipeOutput
+        );
+
         wallBuilder(ModBlocks.ALEXANDRITE_WALL.get(), ModBlocks.ALEXANDRITE_BLOCK.get(), recipeOutput);
+
+        wallBuilder(ModBlocks.RAW_ALEXANDRITE_WALL.get(), ModBlocks.RAW_ALEXANDRITE_BLOCK.get(), recipeOutput);
 
         oreSmelting(
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),

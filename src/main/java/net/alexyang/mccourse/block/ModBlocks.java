@@ -108,6 +108,35 @@ public class ModBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()))
     );
 
+    public static final RegistryObject<Block> RAW_ALEXANDRITE_FENCE = registerBlock("raw_alexandrite_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WARPED_STEM)
+                    .forceSolidOn()
+                    .requiresCorrectToolForDrops()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+            )
+    );
+
+    public static final RegistryObject<Block> RAW_ALEXANDRITE_FENCE_GATE = registerBlock(
+            "raw_alexandrite_fence_gate", () -> new FenceGateBlock(ModWoodType.RAW_ALEXANDRITE,
+                    BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WARPED_STEM)
+                    .forceSolidOn()
+                    .requiresCorrectToolForDrops()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+            )
+    );
+
+    public static final RegistryObject<Block> RAW_ALEXANDRITE_WALL = registerBlock("raw_alexandrite_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()).forceSolidOn()
+                    .requiresCorrectToolForDrops()
+            )
+    );
+
     public static final RegistryObject<Block> ALEXANDRITE_ORE = registerBlock(
             "alexandrite_ore",
             () -> new Block(BlockBehaviour.Properties.

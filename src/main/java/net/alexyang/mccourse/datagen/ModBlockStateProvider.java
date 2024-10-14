@@ -45,19 +45,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
         );
 
         fenceBlock((FenceBlock) ModBlocks.ALEXANDRITE_FENCE.get(), blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
+        fenceBlock((FenceBlock) ModBlocks.RAW_ALEXANDRITE_FENCE.get(),
+                blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get())
+        );
 
         fenceGateBlock((FenceGateBlock) ModBlocks.ALEXANDRITE_FENCE_GATE.get(),
                 blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get())
         );
+        fenceGateBlock((FenceGateBlock) ModBlocks.RAW_ALEXANDRITE_FENCE_GATE.get(),
+                blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get())
+        );
 
         wallBlock((WallBlock) ModBlocks.ALEXANDRITE_WALL.get(), blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
+        wallBlock((WallBlock) ModBlocks.RAW_ALEXANDRITE_WALL.get(),
+                blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get())
+        );
 
         blockItem(ModBlocks.ALEXANDRITE_STAIRS);
         blockItem(ModBlocks.ALEXANDRITE_SLAB);
-        blockItem(ModBlocks.RAW_ALEXANDRITE_STAIRS);
-        blockItem(ModBlocks.RAW_ALEXANDRITE_SLAB);
         blockItem(ModBlocks.ALEXANDRITE_PRESSURE_PLATE);
         blockItem(ModBlocks.ALEXANDRITE_FENCE_GATE);
+        blockItem(ModBlocks.RAW_ALEXANDRITE_STAIRS);
+        blockItem(ModBlocks.RAW_ALEXANDRITE_SLAB);
+        blockItem(ModBlocks.RAW_ALEXANDRITE_FENCE_GATE);
     }
 
     private void blockItem(RegistryObject<Block> blockRegistryObject) {

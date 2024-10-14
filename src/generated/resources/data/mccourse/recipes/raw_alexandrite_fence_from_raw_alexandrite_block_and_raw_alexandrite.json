@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mccourse:raw_alexandrite"
+    },
+    "W": {
+      "item": "mccourse:raw_alexandrite_block"
+    }
+  },
+  "pattern": [
+    "W#W",
+    "W#W"
+  ],
+  "result": {
+    "count": 6,
+    "id": "mccourse:raw_alexandrite_fence"
+  }
+}

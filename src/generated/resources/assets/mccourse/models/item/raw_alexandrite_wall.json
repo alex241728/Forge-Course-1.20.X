@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "mccourse:block/raw_alexandrite_block"
+  }
+}

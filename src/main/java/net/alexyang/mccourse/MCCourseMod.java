@@ -5,6 +5,8 @@ import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.item.ModCreativeModeTabs;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -15,6 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -24,6 +27,28 @@ public class MCCourseMod {
     public static final String MOD_ID = "mccourse";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    private static final RegistryObject<Item>[] MOD_INGREDIENTS = new RegistryObject[]{ModItems.ALEXANDRITE,
+            ModItems.RAW_ALEXANDRITE
+    };
+
+    private static final RegistryObject<Block>[] MOD_BUILDING_BLOCKS = new RegistryObject[]{ModBlocks.ALEXANDRITE_BLOCK,
+            ModBlocks.ALEXANDRITE_SLAB, ModBlocks.ALEXANDRITE_STAIRS, ModBlocks.ALEXANDRITE_FENCE,
+            ModBlocks.ALEXANDRITE_FENCE_GATE, ModBlocks.ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK,
+            ModBlocks.RAW_ALEXANDRITE_SLAB, ModBlocks.RAW_ALEXANDRITE_STAIRS, ModBlocks.RAW_ALEXANDRITE_FENCE,
+            ModBlocks.RAW_ALEXANDRITE_FENCE_GATE, ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_ORE,
+            ModBlocks.DEEPSLATE_ALEXANDRITE_ORE, ModBlocks.END_STONE_ALEXANDRITE_ORE, ModBlocks.NETHER_ALEXANDRITE_ORE
+    };
+
+    private static final RegistryObject<Block>[] MOD_REDSTONE_BLOCKS = new RegistryObject[]{
+            ModBlocks.ALEXANDRITE_PRESSURE_PLATE, ModBlocks.ALEXANDRITE_BUTTON
+    };
+
+    private static final RegistryObject<Item>[] MOD_TOOLS_AND_UTILITIES = new RegistryObject[]{ModItems.METAL_DETECTOR};
+
+    private static final RegistryObject<Block>[] MOD_FUNCTIONAL_BLOCKS = new RegistryObject[]{ModBlocks.SOUND_BLOCK};
+
+    private static final RegistryObject<Item>[] MOD_FOOD_AND_DRINKS = new RegistryObject[]{ModItems.KOHLRABI};
 
     public MCCourseMod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
@@ -50,41 +75,39 @@ public class MCCourseMod {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.ALEXANDRITE);
-            event.accept(ModItems.RAW_ALEXANDRITE);
+            for (RegistryObject<Item> ingredient : MOD_INGREDIENTS) {
+                event.accept(ingredient);
+            }
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModBlocks.ALEXANDRITE_BLOCK);
-            event.accept(ModBlocks.ALEXANDRITE_SLAB);
-            event.accept(ModBlocks.ALEXANDRITE_STAIRS);
-            event.accept(ModBlocks.ALEXANDRITE_FENCE);
-            event.accept(ModBlocks.ALEXANDRITE_FENCE_GATE);
-            event.accept(ModBlocks.ALEXANDRITE_WALL);
-            event.accept(ModBlocks.RAW_ALEXANDRITE_BLOCK);
-            event.accept(ModBlocks.RAW_ALEXANDRITE_SLAB);
-            event.accept(ModBlocks.RAW_ALEXANDRITE_STAIRS);
-            event.accept(ModBlocks.ALEXANDRITE_ORE);
-            event.accept(ModBlocks.DEEPSLATE_ALEXANDRITE_ORE);
-            event.accept(ModBlocks.END_STONE_ALEXANDRITE_ORE);
-            event.accept(ModBlocks.NETHER_ALEXANDRITE_ORE);
+            for (RegistryObject<Block> block : MOD_BUILDING_BLOCKS) {
+                event.accept(block);
+            }
         }
 
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
-            event.accept(ModBlocks.ALEXANDRITE_PRESSURE_PLATE);
-            event.accept(ModBlocks.ALEXANDRITE_BUTTON);
+            for (RegistryObject<Block> block : MOD_REDSTONE_BLOCKS) {
+                event.accept(block);
+            }
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.METAL_DETECTOR);
+            for (RegistryObject<Item> item : MOD_TOOLS_AND_UTILITIES) {
+                event.accept(item);
+            }
         }
 
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            event.accept(ModBlocks.SOUND_BLOCK);
+            for (RegistryObject<Block> block : MOD_FUNCTIONAL_BLOCKS) {
+                event.accept(block);
+            }
         }
 
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(ModItems.KOHLRABI);
+            for (RegistryObject<Item> item : MOD_FOOD_AND_DRINKS) {
+                event.accept(item);
+            }
         }
     }
 
