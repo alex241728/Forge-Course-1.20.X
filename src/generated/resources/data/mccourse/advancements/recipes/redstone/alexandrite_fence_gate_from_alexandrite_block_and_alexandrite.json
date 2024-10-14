@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_alexandrite_block_and_alexandrite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mccourse:alexandrite_block"
+          },
+          {
+            "items": "mccourse:alexandrite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mccourse:alexandrite_fence_gate_from_alexandrite_block_and_alexandrite"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_alexandrite_block_and_alexandrite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mccourse:alexandrite_fence_gate_from_alexandrite_block_and_alexandrite"
+    ]
+  }
+}
