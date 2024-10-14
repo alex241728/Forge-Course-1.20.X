@@ -1,6 +1,5 @@
 package net.alexyang.mccourse.block;
 
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class ModWoodType {
