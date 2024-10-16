@@ -6,6 +6,7 @@ import net.alexyang.mccourse.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -44,6 +45,9 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 ModBlocks.ALEXANDRITE_ORE.get(), ModBlocks.DEEPSLATE_ALEXANDRITE_ORE.get(),
                 ModBlocks.END_STONE_ALEXANDRITE_ORE.get(), ModBlocks.SOUND_BLOCK.get()
         );
+
+        this.tag(ModTags.Blocks.NEEDS_ALEXANDRITE_TOOL).add(Blocks.OBSIDIAN).addTags(BlockTags.NEEDS_IRON_TOOL);
+        this.tag(ModTags.Blocks.INCORRECT_FOR_ALEXANDRITE_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL);
 
         this.tag(BlockTags.PRESSURE_PLATES).add(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get());
 

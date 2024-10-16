@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_alexandrite_and_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mccourse:alexandrite"
+          },
+          {
+            "items": "minecraft:stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mccourse:alexandrite_shovel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_alexandrite_and_stick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mccourse:alexandrite_shovel"
+    ]
+  }
+}

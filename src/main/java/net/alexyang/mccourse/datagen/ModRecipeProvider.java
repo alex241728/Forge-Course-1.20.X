@@ -8,12 +8,14 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -87,6 +89,71 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 recipeOutput, ALEXANDRITE_SMELTABLES, RecipeCategory.MISC, ModItems.ALEXANDRITE.get(),
                 0.25f, 100, "alexandrite"
         );
+
+        swordBuilder(ModItems.ALEXANDRITE_SWORD.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
+        pickaxeBuilder(ModItems.ALEXANDRITE_PICKAXE.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
+        axeBuilder(ModItems.ALEXANDRITE_AXE.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
+        hoeBuilder(ModItems.ALEXANDRITE_HOE.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
+        shovelBuilder(ModItems.ALEXANDRITE_SHOVEL.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+    }
+
+    private static void swordBuilder(ItemLike pSword, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, pSword).define('#', pMaterial)
+                .define('S', Items.STICK)
+                .pattern("#")
+                .pattern("#")
+                .pattern("S")
+                .unlockedBy(getHasName(pMaterial) + "_and_" + getItemName(Items.STICK),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.STICK)
+                ).save(recipeOutput);
+    }
+
+    private static void pickaxeBuilder(ItemLike pPickAxe, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pPickAxe).define('#', pMaterial)
+                .define('S', Items.STICK)
+                .pattern("###")
+                .pattern(" S ")
+                .pattern(" S ")
+                .unlockedBy(getHasName(pMaterial) + "_and_" + getItemName(Items.STICK),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.STICK)
+                ).save(recipeOutput);
+    }
+
+    private static void axeBuilder(ItemLike pAxe, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pAxe).define('#', pMaterial)
+                .define('S', Items.STICK)
+                .pattern("##")
+                .pattern("#S")
+                .pattern(" S")
+                .unlockedBy(getHasName(pMaterial) + "_and_" + getItemName(Items.STICK),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.STICK)
+                ).save(recipeOutput);
+    }
+
+    private static void hoeBuilder(ItemLike pHoe, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pHoe).define('#', pMaterial)
+                .define('S', Items.STICK)
+                .pattern("##")
+                .pattern(" S")
+                .pattern(" S")
+                .unlockedBy(getHasName(pMaterial) + "_and_" + getItemName(Items.STICK),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.STICK)
+                ).save(recipeOutput);
+    }
+
+    private static void shovelBuilder(ItemLike pShovel, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pShovel).define('#', pMaterial)
+                .define('S', Items.STICK)
+                .pattern("#")
+                .pattern("S")
+                .pattern("S")
+                .unlockedBy(getHasName(pMaterial) + "_and_" + getItemName(Items.STICK),
+                        InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.STICK)
+                ).save(recipeOutput);
     }
 
     private static void trapdoorBuilder(ItemLike pTrapdoor, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {

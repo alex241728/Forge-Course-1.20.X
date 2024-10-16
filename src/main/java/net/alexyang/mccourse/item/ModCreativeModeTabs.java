@@ -17,7 +17,9 @@ public class ModCreativeModeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MCCourseMod.MOD_ID);
 
     private static final RegistryObject<Item>[] MOD_ITEMS = new RegistryObject[]{ModItems.ALEXANDRITE,
-            ModItems.RAW_ALEXANDRITE, ModItems.METAL_DETECTOR, ModItems.KOHLRABI
+            ModItems.RAW_ALEXANDRITE, ModItems.ALEXANDRITE_SWORD, ModItems.ALEXANDRITE_PICKAXE,
+            ModItems.ALEXANDRITE_SHOVEL, ModItems.ALEXANDRITE_AXE, ModItems.ALEXANDRITE_HOE, ModItems.METAL_DETECTOR,
+            ModItems.KOHLRABI
     };
 
     private static final RegistryObject<Block>[] MOD_BLOCKS = new RegistryObject[]{ModBlocks.ALEXANDRITE_BLOCK,
