@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "mccourse:alexandrite_axe"
+    },
+    "H": {
+      "item": "mccourse:alexandrite_shovel"
+    },
+    "P": {
+      "item": "mccourse:alexandrite_pickaxe"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "AHP",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mccourse:alexandrite_paxel"
+  }
+}

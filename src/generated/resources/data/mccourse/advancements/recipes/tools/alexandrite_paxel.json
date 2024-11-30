@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_alexandrite_axe_alexandrite_shovel_alexandrite_pickaxe_and_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mccourse:alexandrite_axe"
+          },
+          {
+            "items": "mccourse:alexandrite_shovel"
+          },
+          {
+            "items": "mccourse:alexandrite_pickaxe"
+          },
+          {
+            "items": "minecraft:stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mccourse:alexandrite_paxel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_alexandrite_axe_alexandrite_shovel_alexandrite_pickaxe_and_stick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mccourse:alexandrite_paxel"
+    ]
+  }
+}

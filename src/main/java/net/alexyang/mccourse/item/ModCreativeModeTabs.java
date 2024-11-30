@@ -13,44 +13,68 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModCreativeModeTabs {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MCCourseMod.MOD_ID);
+  public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+      DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MCCourseMod.MOD_ID);
 
-    private static final RegistryObject<Item>[] MOD_ITEMS = new RegistryObject[]{ModItems.ALEXANDRITE,
-            ModItems.RAW_ALEXANDRITE, ModItems.ALEXANDRITE_SWORD, ModItems.ALEXANDRITE_PICKAXE,
-            ModItems.ALEXANDRITE_SHOVEL, ModItems.ALEXANDRITE_AXE, ModItems.ALEXANDRITE_HOE, ModItems.METAL_DETECTOR,
-            ModItems.KOHLRABI
-    };
+  private static final RegistryObject<Item>[] MOD_ITEMS =
+      new RegistryObject[] {
+        ModItems.ALEXANDRITE,
+        ModItems.RAW_ALEXANDRITE,
+        ModItems.ALEXANDRITE_SWORD,
+        ModItems.ALEXANDRITE_PICKAXE,
+        ModItems.ALEXANDRITE_SHOVEL,
+        ModItems.ALEXANDRITE_AXE,
+        ModItems.ALEXANDRITE_HOE,
+        ModItems.ALEXANDRITE_PAXEL,
+        ModItems.METAL_DETECTOR,
+        ModItems.KOHLRABI
+      };
 
-    private static final RegistryObject<Block>[] MOD_BLOCKS = new RegistryObject[]{ModBlocks.ALEXANDRITE_BLOCK,
-            ModBlocks.ALEXANDRITE_STAIRS, ModBlocks.ALEXANDRITE_SLAB, ModBlocks.ALEXANDRITE_PRESSURE_PLATE,
-            ModBlocks.ALEXANDRITE_BUTTON, ModBlocks.ALEXANDRITE_FENCE, ModBlocks.ALEXANDRITE_FENCE_GATE,
-            ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_DOOR, ModBlocks.ALEXANDRITE_TRAPDOOR,
-            ModBlocks.RAW_ALEXANDRITE_BLOCK, ModBlocks.RAW_ALEXANDRITE_STAIRS, ModBlocks.RAW_ALEXANDRITE_SLAB,
-            ModBlocks.RAW_ALEXANDRITE_FENCE, ModBlocks.RAW_ALEXANDRITE_FENCE_GATE, ModBlocks.RAW_ALEXANDRITE_WALL,
-            ModBlocks.ALEXANDRITE_ORE, ModBlocks.DEEPSLATE_ALEXANDRITE_ORE, ModBlocks.END_STONE_ALEXANDRITE_ORE,
-            ModBlocks.NETHER_ALEXANDRITE_ORE, ModBlocks.SOUND_BLOCK
-    };
+  private static final RegistryObject<Block>[] MOD_BLOCKS =
+      new RegistryObject[] {
+        ModBlocks.ALEXANDRITE_BLOCK,
+        ModBlocks.ALEXANDRITE_STAIRS,
+        ModBlocks.ALEXANDRITE_SLAB,
+        ModBlocks.ALEXANDRITE_PRESSURE_PLATE,
+        ModBlocks.ALEXANDRITE_BUTTON,
+        ModBlocks.ALEXANDRITE_FENCE,
+        ModBlocks.ALEXANDRITE_FENCE_GATE,
+        ModBlocks.ALEXANDRITE_WALL,
+        ModBlocks.ALEXANDRITE_DOOR,
+        ModBlocks.ALEXANDRITE_TRAPDOOR,
+        ModBlocks.RAW_ALEXANDRITE_BLOCK,
+        ModBlocks.RAW_ALEXANDRITE_STAIRS,
+        ModBlocks.RAW_ALEXANDRITE_SLAB,
+        ModBlocks.RAW_ALEXANDRITE_FENCE,
+        ModBlocks.RAW_ALEXANDRITE_FENCE_GATE,
+        ModBlocks.RAW_ALEXANDRITE_WALL,
+        ModBlocks.ALEXANDRITE_ORE,
+        ModBlocks.DEEPSLATE_ALEXANDRITE_ORE,
+        ModBlocks.END_STONE_ALEXANDRITE_ORE,
+        ModBlocks.NETHER_ALEXANDRITE_ORE,
+        ModBlocks.SOUND_BLOCK
+      };
 
-    public static final RegistryObject<CreativeModeTab> COURSE_TAB = CREATIVE_MODE_TABS.register(
-            "course_tab",
-            () -> CreativeModeTab.
-                    builder().
-                    icon(() -> new ItemStack(ModItems.ALEXANDRITE.get())).
-                    title(Component.translatable("creativetab.course_tab")).
-                    displayItems((displayParameters, output) -> {
+  public static final RegistryObject<CreativeModeTab> COURSE_TAB =
+      CREATIVE_MODE_TABS.register(
+          "course_tab",
+          () ->
+              CreativeModeTab.builder()
+                  .icon(() -> new ItemStack(ModItems.ALEXANDRITE.get()))
+                  .title(Component.translatable("creativetab.course_tab"))
+                  .displayItems(
+                      (displayParameters, output) -> {
                         for (RegistryObject<Item> item : MOD_ITEMS) {
-                            output.accept(item.get());
+                          output.accept(item.get());
                         }
 
                         for (RegistryObject<Block> block : MOD_BLOCKS) {
-                            output.accept(block.get());
+                          output.accept(block.get());
                         }
-                    }).
-                    build()
-    );
+                      })
+                  .build());
 
-    public static void register(IEventBus eventBus) {
-        CREATIVE_MODE_TABS.register(eventBus);
-    }
+  public static void register(IEventBus eventBus) {
+    CREATIVE_MODE_TABS.register(eventBus);
+  }
 }

@@ -1,5 +1,7 @@
 {
   "values": [
-    "mccourse:nether_alexandrite_ore"
+    "mccourse:nether_alexandrite_ore",
+    "mccourse:alexandrite_door",
+    "mccourse:alexandrite_trapdoor"
   ]
 }
