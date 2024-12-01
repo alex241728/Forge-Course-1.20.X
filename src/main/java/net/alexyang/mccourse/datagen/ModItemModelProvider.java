@@ -13,35 +13,62 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
+import java.util.Objects;
+
 public class ModItemModelProvider extends ItemModelProvider {
+  private static final List<RegistryObject<Item>> simpleItems =
+      List.of(
+          ModItems.ALEXANDRITE,
+          ModItems.RAW_ALEXANDRITE,
+          ModItems.KOHLRABI,
+          ModItems.METAL_DETECTOR,
+          ModItems.PEAT_BRICK);
+
+  private static final List<RegistryObject<Item>> handheldItems =
+      List.of(
+          ModItems.ALEXANDRITE_SWORD,
+          ModItems.ALEXANDRITE_PICKAXE,
+          ModItems.ALEXANDRITE_SHOVEL,
+          ModItems.ALEXANDRITE_HOE,
+          ModItems.ALEXANDRITE_AXE,
+          ModItems.ALEXANDRITE_PAXEL,
+          ModItems.ALEXANDRITE_HAMMER);
+
+  private static final List<RegistryObject<Block>> simpleBlockItems =
+      List.of(ModBlocks.ALEXANDRITE_DOOR);
+
   public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
     super(output, MCCourseMod.MOD_ID, existingFileHelper);
   }
 
   @Override
   protected void registerModels() {
-    simpleItem(ModItems.ALEXANDRITE);
-    simpleItem(ModItems.RAW_ALEXANDRITE);
-    simpleItem(ModItems.KOHLRABI);
-    simpleItem(ModItems.METAL_DETECTOR);
-    simpleItem(ModItems.PEAT_BRICK);
+    // register all simple items
+    for (RegistryObject<Item> item : simpleItems) {
+      simpleItem(item);
+    }
 
-    handheldItem(ModItems.ALEXANDRITE_SWORD);
-    handheldItem(ModItems.ALEXANDRITE_PICKAXE);
-    handheldItem(ModItems.ALEXANDRITE_SHOVEL);
-    handheldItem(ModItems.ALEXANDRITE_HOE);
-    handheldItem(ModItems.ALEXANDRITE_AXE);
-    handheldItem(ModItems.ALEXANDRITE_PAXEL);
+    // register all handheld items
+    for (RegistryObject<Item> item : handheldItems) {
+      handheldItem(item);
+    }
 
+    // register all button items
     buttonItem(ModBlocks.ALEXANDRITE_BUTTON, ModBlocks.ALEXANDRITE_BLOCK);
 
+    // register all fence items
     fenceItem(ModBlocks.ALEXANDRITE_FENCE, ModBlocks.ALEXANDRITE_BLOCK);
     fenceItem(ModBlocks.RAW_ALEXANDRITE_FENCE, ModBlocks.RAW_ALEXANDRITE_BLOCK);
 
+    // register all wall items
     wallItem(ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_BLOCK);
     wallItem(ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK);
 
-    simpleBlockItem(ModBlocks.ALEXANDRITE_DOOR);
+    // register all simple block items
+    for (RegistryObject<Block> item : simpleBlockItems) {
+      simpleBlockItem(item);
+    }
   }
 
   private ItemModelBuilder handheldItem(RegistryObject<Item> item) {
@@ -52,32 +79,41 @@ public class ModItemModelProvider extends ItemModelProvider {
 
   private void fenceItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
     this.withExistingParent(
-            ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/fence_inventory"))
+            Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath(),
+            mcLoc("block/fence_inventory"))
         .texture(
             "texture",
             new ResourceLocation(
                 MCCourseMod.MOD_ID,
-                "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+                "block/"
+                    + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(baseBlock.get()))
+                        .getPath()));
   }
 
   private void wallItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
     this.withExistingParent(
-            ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/wall_inventory"))
+            Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath(),
+            mcLoc("block/wall_inventory"))
         .texture(
             "wall",
             new ResourceLocation(
                 MCCourseMod.MOD_ID,
-                "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+                "block/"
+                    + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(baseBlock.get()))
+                        .getPath()));
   }
 
   private void buttonItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
     this.withExistingParent(
-            ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/button_inventory"))
+            Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath(),
+            mcLoc("block/button_inventory"))
         .texture(
             "texture",
             new ResourceLocation(
                 MCCourseMod.MOD_ID,
-                "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+                "block/"
+                    + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(baseBlock.get()))
+                        .getPath()));
   }
 
   private ItemModelBuilder simpleBlockItem(RegistryObject<Block> item) {

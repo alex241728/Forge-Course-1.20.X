@@ -20,108 +20,120 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
+import java.util.List;
+
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MCCourseMod.MOD_ID)
 public class MCCourseMod {
-    // Define mod id in a common place for everything to reference
-    public static final String MOD_ID = "mccourse";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+  // Define mod id in a common place for everything to reference
+  public static final String MOD_ID = "mccourse";
+  // Directly reference a slf4j logger
+  private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final RegistryObject<Item>[] MOD_INGREDIENTS = new RegistryObject[]{ModItems.ALEXANDRITE,
-            ModItems.RAW_ALEXANDRITE
-    };
+  private static final List<RegistryObject<Item>> MOD_INGREDIENTS =
+      List.of(ModItems.ALEXANDRITE, ModItems.RAW_ALEXANDRITE);
 
-    private static final RegistryObject<Block>[] MOD_BUILDING_BLOCKS = new RegistryObject[]{ModBlocks.ALEXANDRITE_BLOCK,
-            ModBlocks.ALEXANDRITE_SLAB, ModBlocks.ALEXANDRITE_STAIRS, ModBlocks.ALEXANDRITE_FENCE,
-            ModBlocks.ALEXANDRITE_FENCE_GATE, ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_DOOR,
-            ModBlocks.ALEXANDRITE_TRAPDOOR, ModBlocks.RAW_ALEXANDRITE_BLOCK, ModBlocks.RAW_ALEXANDRITE_SLAB,
-            ModBlocks.RAW_ALEXANDRITE_STAIRS, ModBlocks.RAW_ALEXANDRITE_FENCE, ModBlocks.RAW_ALEXANDRITE_FENCE_GATE,
-            ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_ORE, ModBlocks.DEEPSLATE_ALEXANDRITE_ORE,
-            ModBlocks.END_STONE_ALEXANDRITE_ORE, ModBlocks.NETHER_ALEXANDRITE_ORE
-    };
+  private static final List<RegistryObject<Block>> MOD_BUILDING_BLOCKS =
+      List.of(
+          ModBlocks.ALEXANDRITE_BLOCK,
+          ModBlocks.ALEXANDRITE_SLAB,
+          ModBlocks.ALEXANDRITE_STAIRS,
+          ModBlocks.ALEXANDRITE_FENCE,
+          ModBlocks.ALEXANDRITE_FENCE_GATE,
+          ModBlocks.ALEXANDRITE_WALL,
+          ModBlocks.ALEXANDRITE_DOOR,
+          ModBlocks.ALEXANDRITE_TRAPDOOR,
+          ModBlocks.RAW_ALEXANDRITE_BLOCK,
+          ModBlocks.RAW_ALEXANDRITE_SLAB,
+          ModBlocks.RAW_ALEXANDRITE_STAIRS,
+          ModBlocks.RAW_ALEXANDRITE_FENCE,
+          ModBlocks.RAW_ALEXANDRITE_FENCE_GATE,
+          ModBlocks.RAW_ALEXANDRITE_WALL,
+          ModBlocks.ALEXANDRITE_ORE,
+          ModBlocks.DEEPSLATE_ALEXANDRITE_ORE,
+          ModBlocks.END_STONE_ALEXANDRITE_ORE,
+          ModBlocks.NETHER_ALEXANDRITE_ORE);
 
-    private static final RegistryObject<Block>[] MOD_REDSTONE_BLOCKS = new RegistryObject[]{
-            ModBlocks.ALEXANDRITE_PRESSURE_PLATE, ModBlocks.ALEXANDRITE_BUTTON
-    };
+  private static final List<RegistryObject<Block>> MOD_REDSTONE_BLOCKS =
+      List.of(ModBlocks.ALEXANDRITE_PRESSURE_PLATE, ModBlocks.ALEXANDRITE_BUTTON);
 
-    private static final RegistryObject<Item>[] MOD_TOOLS_AND_UTILITIES = new RegistryObject[]{ModItems.METAL_DETECTOR};
+  private static final List<RegistryObject<Item>> MOD_TOOLS_AND_UTILITIES =
+      List.of(ModItems.METAL_DETECTOR);
 
-    private static final RegistryObject<Block>[] MOD_FUNCTIONAL_BLOCKS = new RegistryObject[]{ModBlocks.SOUND_BLOCK};
+  private static final List<RegistryObject<Block>> MOD_FUNCTIONAL_BLOCKS =
+      List.of(ModBlocks.SOUND_BLOCK);
 
-    private static final RegistryObject<Item>[] MOD_FOOD_AND_DRINKS = new RegistryObject[]{ModItems.KOHLRABI};
+  private static final List<RegistryObject<Item>> MOD_FOOD_AND_DRINKS = List.of(ModItems.KOHLRABI);
 
-    public MCCourseMod(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus = context.getModEventBus();
+  public MCCourseMod(FMLJavaModLoadingContext context) {
+    IEventBus modEventBus = context.getModEventBus();
 
-        ModItems.register(modEventBus);
+    ModItems.register(modEventBus);
 
-        ModBlocks.register(modEventBus);
+    ModBlocks.register(modEventBus);
 
-        ModCreativeModeTabs.register(modEventBus);
+    ModCreativeModeTabs.register(modEventBus);
 
-        // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
+    // Register the commonSetup method for modloading
+    modEventBus.addListener(this::commonSetup);
 
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
 
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
+    // Register the item to a creative tab
+    modEventBus.addListener(this::addCreative);
+  }
+
+  private void commonSetup(final FMLCommonSetupEvent event) {}
+
+  // Add the example block item to the building blocks tab
+  private void addCreative(BuildCreativeModeTabContentsEvent event) {
+    if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+      for (RegistryObject<Item> ingredient : MOD_INGREDIENTS) {
+        event.accept(ingredient);
+      }
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+      for (RegistryObject<Block> block : MOD_BUILDING_BLOCKS) {
+        event.accept(block);
+      }
     }
 
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            for (RegistryObject<Item> ingredient : MOD_INGREDIENTS) {
-                event.accept(ingredient);
-            }
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            for (RegistryObject<Block> block : MOD_BUILDING_BLOCKS) {
-                event.accept(block);
-            }
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
-            for (RegistryObject<Block> block : MOD_REDSTONE_BLOCKS) {
-                event.accept(block);
-            }
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            for (RegistryObject<Item> item : MOD_TOOLS_AND_UTILITIES) {
-                event.accept(item);
-            }
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            for (RegistryObject<Block> block : MOD_FUNCTIONAL_BLOCKS) {
-                event.accept(block);
-            }
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            for (RegistryObject<Item> item : MOD_FOOD_AND_DRINKS) {
-                event.accept(item);
-            }
-        }
+    if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
+      for (RegistryObject<Block> block : MOD_REDSTONE_BLOCKS) {
+        event.accept(block);
+      }
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+      for (RegistryObject<Item> item : MOD_TOOLS_AND_UTILITIES) {
+        event.accept(item);
+      }
+    }
+
+    if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+      for (RegistryObject<Block> block : MOD_FUNCTIONAL_BLOCKS) {
+        event.accept(block);
+      }
+    }
+
+    if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+      for (RegistryObject<Item> item : MOD_FOOD_AND_DRINKS) {
+        event.accept(item);
+      }
+    }
+  }
+
+  // You can use SubscribeEvent and let the Event Bus discover methods to call
+  @SubscribeEvent
+  public void onServerStarting(ServerStartingEvent event) {}
+
+  // You can use EventBusSubscriber to automatically register all static methods in the class
+  // annotated with @SubscribeEvent
+  @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+  public static class ClientModEvents {
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-        }
-    }
+    public static void onClientSetup(FMLClientSetupEvent event) {}
+  }
 }

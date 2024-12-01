@@ -15,7 +15,6 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -145,6 +144,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ModItems.ALEXANDRITE_SHOVEL.get(),
         ModItems.ALEXANDRITE_PICKAXE.get(),
         recipeOutput);
+
+    hammerBuilder(ModItems.ALEXANDRITE_HAMMER.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
   }
 
   private static void swordBuilder(
@@ -240,6 +241,20 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 + "_and_"
                 + getItemName(Items.STICK),
             InventoryChangeTrigger.TriggerInstance.hasItems(pAxe, pShovel, pPickAxe, Items.STICK))
+        .save(recipeOutput);
+  }
+
+  private static void hammerBuilder(
+      ItemLike pHammer, ItemLike pMaterial, @NotNull RecipeOutput recipeOutput) {
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pHammer)
+        .define('#', pMaterial)
+        .define('S', Items.STICK)
+        .pattern("###")
+        .pattern("#S#")
+        .pattern(" S ")
+        .unlockedBy(
+            getHasName(pMaterial) + "_and_" + getItemName(Items.STICK),
+            InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.STICK))
         .save(recipeOutput);
   }
 
