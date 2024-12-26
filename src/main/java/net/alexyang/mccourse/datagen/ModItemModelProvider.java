@@ -4,20 +4,43 @@ import net.alexyang.mccourse.MCCourseMod;
 import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
-  private static final List<RegistryObject<Item>> simpleItems =
+  private static LinkedHashMap<ResourceKey<TrimMaterial>, Float> trimMaterials =
+      new LinkedHashMap<>();
+
+  static {
+    trimMaterials.put(TrimMaterials.QUARTZ, 0.1F);
+    trimMaterials.put(TrimMaterials.IRON, 0.2F);
+    trimMaterials.put(TrimMaterials.NETHERITE, 0.3F);
+    trimMaterials.put(TrimMaterials.REDSTONE, 0.4F);
+    trimMaterials.put(TrimMaterials.COPPER, 0.5F);
+    trimMaterials.put(TrimMaterials.GOLD, 0.6F);
+    trimMaterials.put(TrimMaterials.EMERALD, 0.7F);
+    trimMaterials.put(TrimMaterials.DIAMOND, 0.8F);
+    trimMaterials.put(TrimMaterials.LAPIS, 0.9F);
+    trimMaterials.put(TrimMaterials.AMETHYST, 1.0F);
+  }
+
+  private static final List<RegistryObject<Item>> SIMPLE_ITEMS =
       List.of(
           ModItems.ALEXANDRITE,
           ModItems.RAW_ALEXANDRITE,
@@ -25,7 +48,7 @@ public class ModItemModelProvider extends ItemModelProvider {
           ModItems.METAL_DETECTOR,
           ModItems.PEAT_BRICK);
 
-  private static final List<RegistryObject<Item>> handheldItems =
+  private static final List<RegistryObject<Item>> HANDHELD_ITEMS =
       List.of(
           ModItems.ALEXANDRITE_SWORD,
           ModItems.ALEXANDRITE_PICKAXE,
@@ -35,8 +58,15 @@ public class ModItemModelProvider extends ItemModelProvider {
           ModItems.ALEXANDRITE_PAXEL,
           ModItems.ALEXANDRITE_HAMMER);
 
-  private static final List<RegistryObject<Block>> simpleBlockItems =
+  private static final List<RegistryObject<Block>> SIMPLE_BLOCK_ITEMS =
       List.of(ModBlocks.ALEXANDRITE_DOOR);
+
+  private static final List<RegistryObject<Item>> TRIMMED_ARMOR_ITEMS =
+      List.of(
+          ModItems.ALEXANDRITE_HELMET,
+          ModItems.ALEXANDRITE_CHESTPLATE,
+          ModItems.ALEXANDRITE_LEGGING,
+          ModItems.ALEXANDRITE_BOOTS);
 
   public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
     super(output, MCCourseMod.MOD_ID, existingFileHelper);
@@ -45,12 +75,12 @@ public class ModItemModelProvider extends ItemModelProvider {
   @Override
   protected void registerModels() {
     // register all simple items
-    for (RegistryObject<Item> item : simpleItems) {
+    for (RegistryObject<Item> item : SIMPLE_ITEMS) {
       simpleItem(item);
     }
 
     // register all handheld items
-    for (RegistryObject<Item> item : handheldItems) {
+    for (RegistryObject<Item> item : HANDHELD_ITEMS) {
       handheldItem(item);
     }
 
@@ -66,8 +96,69 @@ public class ModItemModelProvider extends ItemModelProvider {
     wallItem(ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK);
 
     // register all simple block items
-    for (RegistryObject<Block> item : simpleBlockItems) {
+    for (RegistryObject<Block> item : SIMPLE_BLOCK_ITEMS) {
       simpleBlockItem(item);
+    }
+
+    // register all trimmed armor items
+    for (RegistryObject<Item> item : TRIMMED_ARMOR_ITEMS) {
+      trimmedArmorItem(item);
+      //      simpleItem(item);
+    }
+  }
+
+  private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {
+    final String MOD_ID = MCCourseMod.MOD_ID;
+
+    if (itemRegistryObject.get() instanceof ArmorItem armorItem) {
+      trimMaterials.forEach(
+          (trimMaterial, value) -> {
+            float trimValue = value;
+
+            String armorType =
+                switch (armorItem.getEquipmentSlot()) {
+                  case HEAD -> "helmet";
+                  case CHEST -> "chestplate";
+                  case LEGS -> "leggings";
+                  case FEET -> "boots";
+                  default -> "";
+                };
+
+            String armorItemPath = armorItem.toString();
+            String trimPath =
+                "trims/items/" + armorType + "_trim_" + trimMaterial.location().getPath();
+            String currentTrimName =
+                armorItemPath + "_" + trimMaterial.location().getPath() + "_trim";
+            ResourceLocation armorItemResLoc = new ResourceLocation(MOD_ID, armorItemPath);
+            ResourceLocation trimResLoc = new ResourceLocation(MOD_ID, trimPath); // minecraft namespace
+            ResourceLocation trimNameResLoc = ResourceLocation.parse(currentTrimName);
+
+            // This is used for making the ExistingFileHelper acknowledge that this texture exist,
+            // so this will
+            // avoid an IllegalArgumentException
+            existingFileHelper.trackGenerated(
+                trimResLoc, PackType.CLIENT_RESOURCES, ".png", "textures");
+
+            // Trimmed armorItem files
+            getBuilder(currentTrimName)
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture(
+                    "layer0", armorItemResLoc.getNamespace() + ":item/" + armorItemResLoc.getPath())
+                .texture("layer1", trimResLoc);
+
+            // Non-trimmed armorItem file (normal variant)
+            this.withExistingParent(itemRegistryObject.getId().getPath(), mcLoc("item/generated"))
+                .override()
+                .model(
+                    new ModelFile.UncheckedModelFile(
+                        trimNameResLoc.getNamespace() + ":item/" + trimNameResLoc.getPath()))
+                .predicate(mcLoc("trim_type"), trimValue)
+                .end()
+                .texture(
+                    "layer0",
+                    ResourceLocation.fromNamespaceAndPath(
+                        MOD_ID, "item/" + itemRegistryObject.getId().getPath()));
+          });
     }
   }
 
