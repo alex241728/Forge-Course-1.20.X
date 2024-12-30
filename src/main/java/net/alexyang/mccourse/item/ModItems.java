@@ -126,6 +126,16 @@ public class ModItems {
               new ArmorItem(
                   ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.BOOTS, new Item.Properties()));
 
+  public static final RegistryObject<Item> ALEXANDRITE_HORSE_ARMOR =
+      ITEMS.register(
+          "alexandrite_horse_armor",
+          () ->
+              new AnimalArmorItem(
+                  ModArmorMaterials.ALEXANDRITE,
+                  AnimalArmorItem.BodyType.EQUESTRIAN,
+                  false,
+                  new Item.Properties().stacksTo(1)));
+
   public static void register(IEventBus eventBus) {
     ITEMS.register(eventBus);
   }

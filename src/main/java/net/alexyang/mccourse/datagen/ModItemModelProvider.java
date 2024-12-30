@@ -46,7 +46,8 @@ public class ModItemModelProvider extends ItemModelProvider {
           ModItems.RAW_ALEXANDRITE,
           ModItems.KOHLRABI,
           ModItems.METAL_DETECTOR,
-          ModItems.PEAT_BRICK);
+          ModItems.PEAT_BRICK,
+          ModItems.ALEXANDRITE_HORSE_ARMOR);
 
   private static final List<RegistryObject<Item>> HANDHELD_ITEMS =
       List.of(
