@@ -24,20 +24,20 @@ import java.util.List;
 import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
-  private static LinkedHashMap<ResourceKey<TrimMaterial>, Float> trimMaterials =
+  private static final LinkedHashMap<ResourceKey<TrimMaterial>, Float> TRIM_MATERIALS =
       new LinkedHashMap<>();
 
   static {
-    trimMaterials.put(TrimMaterials.QUARTZ, 0.1F);
-    trimMaterials.put(TrimMaterials.IRON, 0.2F);
-    trimMaterials.put(TrimMaterials.NETHERITE, 0.3F);
-    trimMaterials.put(TrimMaterials.REDSTONE, 0.4F);
-    trimMaterials.put(TrimMaterials.COPPER, 0.5F);
-    trimMaterials.put(TrimMaterials.GOLD, 0.6F);
-    trimMaterials.put(TrimMaterials.EMERALD, 0.7F);
-    trimMaterials.put(TrimMaterials.DIAMOND, 0.8F);
-    trimMaterials.put(TrimMaterials.LAPIS, 0.9F);
-    trimMaterials.put(TrimMaterials.AMETHYST, 1.0F);
+    TRIM_MATERIALS.put(TrimMaterials.QUARTZ, 0.1F);
+    TRIM_MATERIALS.put(TrimMaterials.IRON, 0.2F);
+    TRIM_MATERIALS.put(TrimMaterials.NETHERITE, 0.3F);
+    TRIM_MATERIALS.put(TrimMaterials.REDSTONE, 0.4F);
+    TRIM_MATERIALS.put(TrimMaterials.COPPER, 0.5F);
+    TRIM_MATERIALS.put(TrimMaterials.GOLD, 0.6F);
+    TRIM_MATERIALS.put(TrimMaterials.EMERALD, 0.7F);
+    TRIM_MATERIALS.put(TrimMaterials.DIAMOND, 0.8F);
+    TRIM_MATERIALS.put(TrimMaterials.LAPIS, 0.9F);
+    TRIM_MATERIALS.put(TrimMaterials.AMETHYST, 1.0F);
   }
 
   private static final List<RegistryObject<Item>> SIMPLE_ITEMS =
@@ -111,7 +111,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     final String MOD_ID = MCCourseMod.MOD_ID;
 
     if (itemRegistryObject.get() instanceof ArmorItem armorItem) {
-      trimMaterials.forEach(
+      TRIM_MATERIALS.forEach(
           (trimMaterial, value) -> {
             float trimValue = value;
 
@@ -125,13 +125,15 @@ public class ModItemModelProvider extends ItemModelProvider {
                 };
 
             String armorItemPath = armorItem.toString();
+            ResourceLocation armorItemResLoc = new ResourceLocation(MOD_ID, armorItemPath);
+
             String trimPath =
                 "trims/items/" + armorType + "_trim_" + trimMaterial.location().getPath();
+            ResourceLocation trimResLoc = ResourceLocation.parse(trimPath);
+
             String currentTrimName =
                 armorItemPath + "_" + trimMaterial.location().getPath() + "_trim";
-            ResourceLocation armorItemResLoc = new ResourceLocation(MOD_ID, armorItemPath);
-            ResourceLocation trimResLoc = new ResourceLocation(MOD_ID, trimPath); // minecraft namespace
-            ResourceLocation trimNameResLoc = ResourceLocation.parse(currentTrimName);
+            ResourceLocation trimNameResLoc = new ResourceLocation(MOD_ID, currentTrimName);
 
             // This is used for making the ExistingFileHelper acknowledge that this texture exist,
             // so this will
