@@ -1,10 +1,7 @@
 package net.alexyang.mccourse.item;
 
 import net.alexyang.mccourse.MCCourseMod;
-import net.alexyang.mccourse.item.custom.FuelItem;
-import net.alexyang.mccourse.item.custom.HammerItem;
-import net.alexyang.mccourse.item.custom.MetalDetectorItem;
-import net.alexyang.mccourse.item.custom.PaxelItem;
+import net.alexyang.mccourse.item.custom.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,7 +33,7 @@ public class ModItems {
       ITEMS.register(
           "alexandrite_sword",
           () ->
-              new SwordItem(
+              new SlowingSwordItem(
                   ModToolTiers.ALEXANDRITE,
                   new Item.Properties()
                       .attributes(SwordItem.createAttributes(ModToolTiers.ALEXANDRITE, 3, -2.4F))));
@@ -100,6 +97,34 @@ public class ModItems {
                   new Item.Properties()
                       .attributes(
                           HammerItem.createAttributes(ModToolTiers.ALEXANDRITE, 1.0F, -2.8F))));
+
+  public static final RegistryObject<Item> ALEXANDRITE_HELMET =
+      ITEMS.register(
+          "alexandrite_helmet",
+          () ->
+              new ArmorItem(
+                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.HELMET, new Item.Properties()));
+
+  public static final RegistryObject<Item> ALEXANDRITE_CHESTPLATE =
+      ITEMS.register(
+          "alexandrite_chestplate",
+          () ->
+              new ArmorItem(
+                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+  public static final RegistryObject<Item> ALEXANDRITE_LEGGING =
+      ITEMS.register(
+          "alexandrite_leggings",
+          () ->
+              new ArmorItem(
+                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+  public static final RegistryObject<Item> ALEXANDRITE_BOOTS =
+      ITEMS.register(
+          "alexandrite_boots",
+          () ->
+              new ArmorItem(
+                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.BOOTS, new Item.Properties()));
 
   public static void register(IEventBus eventBus) {
     ITEMS.register(eventBus);
