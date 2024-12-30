@@ -23,11 +23,7 @@ public class ModItemModelProvider extends ItemModelProvider {
           ModItems.RAW_ALEXANDRITE,
           ModItems.KOHLRABI,
           ModItems.METAL_DETECTOR,
-          ModItems.PEAT_BRICK,
-          ModItems.ALEXANDRITE_HELMET,
-          ModItems.ALEXANDRITE_CHESTPLATE,
-          ModItems.ALEXANDRITE_LEGGING,
-          ModItems.ALEXANDRITE_BOOTS);
+          ModItems.PEAT_BRICK);
 
   private static final List<RegistryObject<Item>> handheldItems =
       List.of(
