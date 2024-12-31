@@ -103,28 +103,36 @@ public class ModItems {
           "alexandrite_helmet",
           () ->
               new ModArmorItem(
-                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.HELMET, new Item.Properties()));
+                  ModArmorMaterials.ALEXANDRITE,
+                  ArmorItem.Type.HELMET,
+                  new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(33))));
 
   public static final RegistryObject<Item> ALEXANDRITE_CHESTPLATE =
       ITEMS.register(
           "alexandrite_chestplate",
           () ->
               new ModArmorItem(
-                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+                  ModArmorMaterials.ALEXANDRITE,
+                  ArmorItem.Type.CHESTPLATE,
+                  new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(33))));
 
   public static final RegistryObject<Item> ALEXANDRITE_LEGGING =
       ITEMS.register(
           "alexandrite_leggings",
           () ->
               new ModArmorItem(
-                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+                  ModArmorMaterials.ALEXANDRITE,
+                  ArmorItem.Type.LEGGINGS,
+                  new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(33))));
 
   public static final RegistryObject<Item> ALEXANDRITE_BOOTS =
       ITEMS.register(
           "alexandrite_boots",
           () ->
               new ModArmorItem(
-                  ModArmorMaterials.ALEXANDRITE, ArmorItem.Type.BOOTS, new Item.Properties()));
+                  ModArmorMaterials.ALEXANDRITE,
+                  ArmorItem.Type.BOOTS,
+                  new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(33))));
 
   public static final RegistryObject<Item> ALEXANDRITE_HORSE_ARMOR =
       ITEMS.register(
