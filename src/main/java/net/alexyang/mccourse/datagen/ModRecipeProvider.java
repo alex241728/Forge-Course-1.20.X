@@ -146,6 +146,29 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         recipeOutput);
 
     hammerBuilder(ModItems.ALEXANDRITE_HAMMER.get(), ModItems.ALEXANDRITE.get(), recipeOutput);
+
+    lampBuilder(
+        ModBlocks.ALEXANDRITE_LAMP.get(),
+        ModItems.ALEXANDRITE.get(),
+        RecipeCategory.DECORATIONS,
+        recipeOutput);
+  }
+
+  private static void lampBuilder(
+      ItemLike pLamp,
+      ItemLike pMaterial,
+      RecipeCategory recipeCategory,
+      @NotNull RecipeOutput recipeOutput) {
+    ShapedRecipeBuilder.shaped(recipeCategory, pLamp)
+        .define('#', pMaterial)
+        .define('G', Items.GLOWSTONE)
+        .pattern(" # ")
+        .pattern("#G#")
+        .pattern(" # ")
+        .unlockedBy(
+            getHasName(pMaterial) + "_and_" + getItemName(Items.GLOWSTONE),
+            InventoryChangeTrigger.TriggerInstance.hasItems(pMaterial, Items.GLOWSTONE))
+        .save(recipeOutput);
   }
 
   private static void swordBuilder(
