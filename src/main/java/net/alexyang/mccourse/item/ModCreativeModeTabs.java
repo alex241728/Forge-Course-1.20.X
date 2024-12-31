@@ -59,7 +59,8 @@ public class ModCreativeModeTabs {
           ModBlocks.DEEPSLATE_ALEXANDRITE_ORE,
           ModBlocks.END_STONE_ALEXANDRITE_ORE,
           ModBlocks.NETHER_ALEXANDRITE_ORE,
-          ModBlocks.SOUND_BLOCK);
+          ModBlocks.SOUND_BLOCK,
+          ModBlocks.ALEXANDRITE_LAMP);
 
   public static final RegistryObject<CreativeModeTab> COURSE_TAB =
       CREATIVE_MODE_TABS.register(
