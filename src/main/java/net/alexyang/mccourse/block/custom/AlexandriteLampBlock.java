@@ -9,21 +9,22 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 public class AlexandriteLampBlock extends Block {
-  public static final BooleanProperty CLICKED = BooleanProperty.create("clicked");
+  public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
   public AlexandriteLampBlock(Properties pProperties) {
     super(pProperties);
-    this.registerDefaultState(this.defaultBlockState().setValue(CLICKED, false));
+    this.registerDefaultState(this.defaultBlockState().setValue(LIT, false));
   }
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-    pBuilder.add(CLICKED);
+    pBuilder.add(LIT);
   }
 
   @Override
@@ -36,8 +37,8 @@ public class AlexandriteLampBlock extends Block {
       @NotNull InteractionHand pHand,
       @NotNull BlockHitResult pHitResult) {
     if (!pLevel.isClientSide() && pHand.equals(InteractionHand.MAIN_HAND)) {
-      boolean currentState = pState.getValue(CLICKED);
-      pLevel.setBlock(pPos, pState.setValue(CLICKED, !currentState), 3);
+      boolean currentState = pState.getValue(LIT);
+      pLevel.setBlock(pPos, pState.setValue(LIT, !currentState), 3);
     }
 
     return ItemInteractionResult.SUCCESS;

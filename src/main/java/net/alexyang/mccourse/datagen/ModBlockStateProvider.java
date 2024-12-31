@@ -2,10 +2,10 @@ package net.alexyang.mccourse.datagen;
 
 import net.alexyang.mccourse.MCCourseMod;
 import net.alexyang.mccourse.block.ModBlocks;
-import net.alexyang.mccourse.block.custom.AlexandriteLampBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -87,7 +87,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         true,
         "cutout");
 
-    alexandriteLamp();
+    lampBlock(ModBlocks.ALEXANDRITE_LAMP, "alexandrite_lamp");
 
     blockItem(ModBlocks.ALEXANDRITE_STAIRS);
     blockItem(ModBlocks.ALEXANDRITE_SLAB);
@@ -99,36 +99,23 @@ public class ModBlockStateProvider extends BlockStateProvider {
     blockItem(ModBlocks.RAW_ALEXANDRITE_FENCE_GATE);
   }
 
-  private void alexandriteLamp() {
-    getVariantBuilder(ModBlocks.ALEXANDRITE_LAMP.get())
+  private void lampBlock(RegistryObject<Block> lampRegistryObject, String lampName) {
+    getVariantBuilder(lampRegistryObject.get())
         .forAllStates(
             state -> {
-              if (state.getValue(AlexandriteLampBlock.CLICKED)) {
-                return new ConfiguredModel[] {
-                  new ConfiguredModel(
-                      models()
-                          .cubeAll(
-                              "alexandrite_lamp_on",
-                              new ResourceLocation(
-                                  MCCourseMod.MOD_ID, "block/" + "alexandrite_lamp_on")))
-                };
-              } else {
-                return new ConfiguredModel[] {
-                  new ConfiguredModel(
-                      models()
-                          .cubeAll(
-                              "alexandrite_lamp_off",
-                              new ResourceLocation(
-                                  MCCourseMod.MOD_ID, "block/" + "alexandrite_lamp_off")))
-                };
-              }
+              boolean isLit = state.getValue(BlockStateProperties.LIT);
+              String suffix = isLit ? "_on" : "";
+              return new ConfiguredModel[] {
+                new ConfiguredModel(
+                    models()
+                        .cubeAll(
+                            lampName + suffix,
+                            new ResourceLocation(MCCourseMod.MOD_ID, "block/" + lampName + suffix)))
+              };
             });
     simpleBlockItem(
-        ModBlocks.ALEXANDRITE_LAMP.get(),
-        models()
-            .cubeAll(
-                "alexandrite_lamp_on",
-                new ResourceLocation(MCCourseMod.MOD_ID, "block/" + "alexandrite_lamp_on")));
+        lampRegistryObject.get(),
+        models().cubeAll(lampName, new ResourceLocation(MCCourseMod.MOD_ID, "block/" + lampName)));
   }
 
   private void blockItem(RegistryObject<Block> blockRegistryObject, String appendix) {
