@@ -62,7 +62,7 @@ public class MCCourseMod {
       List.of(ModItems.METAL_DETECTOR);
 
   private static final List<RegistryObject<Block>> MOD_FUNCTIONAL_BLOCKS =
-      List.of(ModBlocks.SOUND_BLOCK);
+      List.of(ModBlocks.SOUND_BLOCK, ModBlocks.ALEXANDRITE_LAMP);
 
   private static final List<RegistryObject<Item>> MOD_FOOD_AND_DRINKS = List.of(ModItems.KOHLRABI);
 
