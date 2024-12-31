@@ -265,7 +265,7 @@ public class ModBlocks {
           () ->
               new AlexandriteLampBlock(
                   BlockBehaviour.Properties.of()
-                      .lightLevel(state -> state.getValue(AlexandriteLampBlock.CLICKED) ? 15 : 0)
+                      .lightLevel(state -> state.getValue(AlexandriteLampBlock.LIT) ? 15 : 0)
                       .strength(0.3F)
                       .sound(SoundType.GLASS)
                       .isValidSpawn(ModBlocks::always)));

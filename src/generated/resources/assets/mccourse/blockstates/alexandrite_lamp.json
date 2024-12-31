@@ -1,9 +1,9 @@
 {
   "variants": {
-    "clicked=false": {
-      "model": "mccourse:block/alexandrite_lamp_off"
+    "lit=false": {
+      "model": "mccourse:block/alexandrite_lamp"
     },
-    "clicked=true": {
+    "lit=true": {
       "model": "mccourse:block/alexandrite_lamp_on"
     }
   }
