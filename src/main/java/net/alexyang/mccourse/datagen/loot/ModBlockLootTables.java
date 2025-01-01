@@ -4,61 +4,59 @@ import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
+  private static final List<RegistryObject<Block>> SELF_DROPPING_BLOCKS =
+      List.of(
+          ModBlocks.ALEXANDRITE_BLOCK,
+          ModBlocks.ALEXANDRITE_STAIRS,
+          ModBlocks.RAW_ALEXANDRITE_BLOCK,
+          ModBlocks.RAW_ALEXANDRITE_STAIRS,
+          ModBlocks.SOUND_BLOCK,
+          ModBlocks.ALEXANDRITE_PRESSURE_PLATE,
+          ModBlocks.ALEXANDRITE_BUTTON,
+          ModBlocks.ALEXANDRITE_FENCE,
+          ModBlocks.ALEXANDRITE_FENCE_GATE,
+          ModBlocks.ALEXANDRITE_WALL,
+          ModBlocks.RAW_ALEXANDRITE_FENCE,
+          ModBlocks.RAW_ALEXANDRITE_FENCE_GATE,
+          ModBlocks.RAW_ALEXANDRITE_WALL,
+          ModBlocks.ALEXANDRITE_TRAPDOOR,
+          ModBlocks.ALEXANDRITE_LAMP);
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Item>> ORES =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_ORE, ModItems.RAW_ALEXANDRITE),
+          Map.entry(ModBlocks.DEEPSLATE_ALEXANDRITE_ORE, ModItems.RAW_ALEXANDRITE),
+          Map.entry(ModBlocks.NETHER_ALEXANDRITE_ORE, ModItems.RAW_ALEXANDRITE),
+          Map.entry(ModBlocks.END_STONE_ALEXANDRITE_ORE, ModItems.RAW_ALEXANDRITE));
+
+  private static final List<RegistryObject<Block>> SLABS =
+      List.of(ModBlocks.ALEXANDRITE_SLAB, ModBlocks.RAW_ALEXANDRITE_SLAB);
+
+  private static final List<RegistryObject<Block>> DOORS = List.of(ModBlocks.ALEXANDRITE_DOOR);
+
   public ModBlockLootTables() {
     super(Set.of(), FeatureFlags.REGISTRY.allFlags());
   }
 
   @Override
   protected void generate() {
-    this.dropSelf(ModBlocks.ALEXANDRITE_BLOCK.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_STAIRS.get());
-    this.dropSelf(ModBlocks.RAW_ALEXANDRITE_BLOCK.get());
-    this.dropSelf(ModBlocks.RAW_ALEXANDRITE_STAIRS.get());
-    this.dropSelf(ModBlocks.SOUND_BLOCK.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_BUTTON.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_FENCE.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_FENCE_GATE.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_WALL.get());
-    this.dropSelf(ModBlocks.RAW_ALEXANDRITE_FENCE.get());
-    this.dropSelf(ModBlocks.RAW_ALEXANDRITE_FENCE_GATE.get());
-    this.dropSelf(ModBlocks.RAW_ALEXANDRITE_WALL.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_TRAPDOOR.get());
-    this.dropSelf(ModBlocks.ALEXANDRITE_LAMP.get());
+    SELF_DROPPING_BLOCKS.forEach(block -> this.dropSelf(block.get()));
 
-    this.add(
-        ModBlocks.ALEXANDRITE_ORE.get(),
-        block -> createOreDrop(ModBlocks.ALEXANDRITE_ORE.get(), ModItems.RAW_ALEXANDRITE.get()));
-    this.add(
-        ModBlocks.DEEPSLATE_ALEXANDRITE_ORE.get(),
-        block ->
-            createOreDrop(
-                ModBlocks.DEEPSLATE_ALEXANDRITE_ORE.get(), ModItems.RAW_ALEXANDRITE.get()));
-    this.add(
-        ModBlocks.NETHER_ALEXANDRITE_ORE.get(),
-        block ->
-            createOreDrop(ModBlocks.NETHER_ALEXANDRITE_ORE.get(), ModItems.RAW_ALEXANDRITE.get()));
-    this.add(
-        ModBlocks.END_STONE_ALEXANDRITE_ORE.get(),
-        block ->
-            createOreDrop(
-                ModBlocks.END_STONE_ALEXANDRITE_ORE.get(), ModItems.RAW_ALEXANDRITE.get()));
-    this.add(
-        ModBlocks.ALEXANDRITE_SLAB.get(),
-        block -> createSlabItemTable(ModBlocks.ALEXANDRITE_SLAB.get()));
-    this.add(
-        ModBlocks.RAW_ALEXANDRITE_SLAB.get(),
-        block -> createSlabItemTable(ModBlocks.RAW_ALEXANDRITE_SLAB.get()));
-    this.add(
-        ModBlocks.ALEXANDRITE_DOOR.get(),
-        block -> createDoorTable(ModBlocks.ALEXANDRITE_DOOR.get()));
+    ORES.forEach((block, item) -> this.add(block.get(), createOreDrop(block.get(), item.get())));
+
+    SLABS.forEach(block -> this.add(block.get(), createSlabItemTable(block.get())));
+
+    DOORS.forEach(block -> this.add(block.get(), createDoorTable(block.get())));
   }
 
   @Override
