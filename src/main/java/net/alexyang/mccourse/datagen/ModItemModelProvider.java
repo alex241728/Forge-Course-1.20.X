@@ -21,6 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -62,6 +63,19 @@ public class ModItemModelProvider extends ItemModelProvider {
   private static final List<RegistryObject<Block>> SIMPLE_BLOCK_ITEMS =
       List.of(ModBlocks.ALEXANDRITE_DOOR);
 
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> BUTTON_ITEMS =
+      Map.ofEntries(Map.entry(ModBlocks.ALEXANDRITE_BUTTON, ModBlocks.ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> FENCE_ITEMS =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_FENCE, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_FENCE, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> WALL_ITEMS =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
   private static final List<RegistryObject<Item>> TRIMMED_ARMOR_ITEMS =
       List.of(
           ModItems.ALEXANDRITE_HELMET,
@@ -76,36 +90,25 @@ public class ModItemModelProvider extends ItemModelProvider {
   @Override
   protected void registerModels() {
     // register all simple items
-    for (RegistryObject<Item> item : SIMPLE_ITEMS) {
-      simpleItem(item);
-    }
+    SIMPLE_ITEMS.forEach(item -> simpleItem(item));
 
     // register all handheld items
-    for (RegistryObject<Item> item : HANDHELD_ITEMS) {
-      handheldItem(item);
-    }
+    HANDHELD_ITEMS.forEach(item -> handheldItem(item));
 
     // register all button items
-    buttonItem(ModBlocks.ALEXANDRITE_BUTTON, ModBlocks.ALEXANDRITE_BLOCK);
+    BUTTON_ITEMS.forEach((button, texture) -> buttonItem(button, texture));
 
     // register all fence items
-    fenceItem(ModBlocks.ALEXANDRITE_FENCE, ModBlocks.ALEXANDRITE_BLOCK);
-    fenceItem(ModBlocks.RAW_ALEXANDRITE_FENCE, ModBlocks.RAW_ALEXANDRITE_BLOCK);
+    FENCE_ITEMS.forEach((fence, texture) -> fenceItem(fence, texture));
 
     // register all wall items
-    wallItem(ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_BLOCK);
-    wallItem(ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK);
+    WALL_ITEMS.forEach((wall, texture) -> wallItem(wall, texture));
 
     // register all simple block items
-    for (RegistryObject<Block> item : SIMPLE_BLOCK_ITEMS) {
-      simpleBlockItem(item);
-    }
+    SIMPLE_BLOCK_ITEMS.forEach(item -> simpleBlockItem(item));
 
     // register all trimmed armor items
-    for (RegistryObject<Item> item : TRIMMED_ARMOR_ITEMS) {
-      trimmedArmorItem(item);
-      //      simpleItem(item);
-    }
+    TRIMMED_ARMOR_ITEMS.forEach(item -> trimmedArmorItem(item));
   }
 
   private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {
