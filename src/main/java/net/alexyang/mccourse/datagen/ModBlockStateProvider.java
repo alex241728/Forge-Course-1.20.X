@@ -13,67 +13,105 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ModBlockStateProvider extends BlockStateProvider {
+  private static final List<RegistryObject<Block>> BLOCKS_WITH_ITEM =
+      List.of(
+          ModBlocks.ALEXANDRITE_BLOCK,
+          ModBlocks.RAW_ALEXANDRITE_BLOCK,
+          ModBlocks.ALEXANDRITE_ORE,
+          ModBlocks.DEEPSLATE_ALEXANDRITE_ORE,
+          ModBlocks.END_STONE_ALEXANDRITE_ORE,
+          ModBlocks.NETHER_ALEXANDRITE_ORE,
+          ModBlocks.SOUND_BLOCK);
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> STAIRS_TO_TEXTURES =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_STAIRS, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_STAIRS, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> SLABS_TO_TEXTURES =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_SLAB, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_SLAB, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> BUTTONS_TO_TEXTURES =
+      Map.ofEntries(Map.entry(ModBlocks.ALEXANDRITE_BUTTON, ModBlocks.ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>>
+      PRESSURE_PLATES_TO_TEXTURES =
+          Map.ofEntries(
+              Map.entry(ModBlocks.ALEXANDRITE_PRESSURE_PLATE, ModBlocks.ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> FENCES_TO_TEXTURES =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_FENCE, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_FENCE, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> FENCE_GATES_TO_TEXTURES =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_FENCE_GATE, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_FENCE_GATE, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
+  private static final Map<RegistryObject<Block>, RegistryObject<Block>> WALL_TO_TEXTURES =
+      Map.ofEntries(
+          Map.entry(ModBlocks.ALEXANDRITE_WALL, ModBlocks.ALEXANDRITE_BLOCK),
+          Map.entry(ModBlocks.RAW_ALEXANDRITE_WALL, ModBlocks.RAW_ALEXANDRITE_BLOCK));
+
+  private static final List<RegistryObject<Block>> LAMPS = List.of(ModBlocks.ALEXANDRITE_LAMP);
+
   public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
     super(output, MCCourseMod.MOD_ID, exFileHelper);
   }
 
   @Override
   protected void registerStatesAndModels() {
-    blockWithItem(ModBlocks.ALEXANDRITE_BLOCK);
-    blockWithItem(ModBlocks.RAW_ALEXANDRITE_BLOCK);
-    blockWithItem(ModBlocks.ALEXANDRITE_ORE);
-    blockWithItem(ModBlocks.DEEPSLATE_ALEXANDRITE_ORE);
-    blockWithItem(ModBlocks.END_STONE_ALEXANDRITE_ORE);
-    blockWithItem(ModBlocks.NETHER_ALEXANDRITE_ORE);
-    blockWithItem(ModBlocks.SOUND_BLOCK);
+    BLOCKS_WITH_ITEM.forEach(block -> blockWithItem(block));
 
-    stairsBlock(
-        (StairBlock) ModBlocks.ALEXANDRITE_STAIRS.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
-    stairsBlock(
-        (StairBlock) ModBlocks.RAW_ALEXANDRITE_STAIRS.get(),
-        blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()));
+    STAIRS_TO_TEXTURES.forEach(
+        (stairsBlock, textureBlock) -> {
+          stairsBlock((StairBlock) stairsBlock.get(), blockTexture(textureBlock.get()));
+          blockItem(stairsBlock);
+        });
 
-    slabBlock(
-        (SlabBlock) ModBlocks.ALEXANDRITE_SLAB.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
-    slabBlock(
-        (SlabBlock) ModBlocks.RAW_ALEXANDRITE_SLAB.get(),
-        blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()),
-        blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()));
+    SLABS_TO_TEXTURES.forEach(
+        (slabBlock, textureBlock) -> {
+          slabBlock(
+              (SlabBlock) slabBlock.get(),
+              blockTexture(textureBlock.get()),
+              blockTexture(textureBlock.get()));
+          blockItem(slabBlock);
+        });
 
-    buttonBlock(
-        (ButtonBlock) ModBlocks.ALEXANDRITE_BUTTON.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
+    BUTTONS_TO_TEXTURES.forEach(
+        (buttonBlock, textureBlock) ->
+            buttonBlock((ButtonBlock) buttonBlock.get(), blockTexture(textureBlock.get())));
 
-    pressurePlateBlock(
-        (PressurePlateBlock) ModBlocks.ALEXANDRITE_PRESSURE_PLATE.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
+    PRESSURE_PLATES_TO_TEXTURES.forEach(
+        (pressurePlateBlock, textureBlock) -> {
+          pressurePlateBlock(
+              (PressurePlateBlock) pressurePlateBlock.get(), blockTexture(textureBlock.get()));
+          blockItem(pressurePlateBlock);
+        });
 
-    fenceBlock(
-        (FenceBlock) ModBlocks.ALEXANDRITE_FENCE.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
-    fenceBlock(
-        (FenceBlock) ModBlocks.RAW_ALEXANDRITE_FENCE.get(),
-        blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()));
+    FENCES_TO_TEXTURES.forEach(
+        (fenceBlock, textureBlock) ->
+            fenceBlock((FenceBlock) fenceBlock.get(), blockTexture(textureBlock.get())));
 
-    fenceGateBlock(
-        (FenceGateBlock) ModBlocks.ALEXANDRITE_FENCE_GATE.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
-    fenceGateBlock(
-        (FenceGateBlock) ModBlocks.RAW_ALEXANDRITE_FENCE_GATE.get(),
-        blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()));
+    FENCE_GATES_TO_TEXTURES.forEach(
+        (fenceGateBlock, textureBlock) -> {
+          fenceGateBlock((FenceGateBlock) fenceGateBlock.get(), blockTexture(textureBlock.get()));
+          blockItem(fenceGateBlock);
+        });
 
-    wallBlock(
-        (WallBlock) ModBlocks.ALEXANDRITE_WALL.get(),
-        blockTexture(ModBlocks.ALEXANDRITE_BLOCK.get()));
-    wallBlock(
-        (WallBlock) ModBlocks.RAW_ALEXANDRITE_WALL.get(),
-        blockTexture(ModBlocks.RAW_ALEXANDRITE_BLOCK.get()));
+    WALL_TO_TEXTURES.forEach(
+        (wallBlock, textureBlock) ->
+            wallBlock((WallBlock) wallBlock.get(), blockTexture(textureBlock.get())));
+
+    LAMPS.forEach((lamp) -> lampBlock(lamp));
 
     doorBlockWithRenderType(
         (DoorBlock) ModBlocks.ALEXANDRITE_DOOR.get(),
@@ -86,20 +124,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
         modLoc("block/alexandrite_trapdoor"),
         true,
         "cutout");
-
-    lampBlock(ModBlocks.ALEXANDRITE_LAMP, "alexandrite_lamp");
-
-    blockItem(ModBlocks.ALEXANDRITE_STAIRS);
-    blockItem(ModBlocks.ALEXANDRITE_SLAB);
-    blockItem(ModBlocks.ALEXANDRITE_PRESSURE_PLATE);
-    blockItem(ModBlocks.ALEXANDRITE_FENCE_GATE);
     blockItem(ModBlocks.ALEXANDRITE_TRAPDOOR, "_bottom");
-    blockItem(ModBlocks.RAW_ALEXANDRITE_STAIRS);
-    blockItem(ModBlocks.RAW_ALEXANDRITE_SLAB);
-    blockItem(ModBlocks.RAW_ALEXANDRITE_FENCE_GATE);
   }
 
-  private void lampBlock(RegistryObject<Block> lampRegistryObject, String lampName) {
+  private void lampBlock(RegistryObject<Block> lampRegistryObject) {
+    String lampName = lampRegistryObject.getId().getPath();
+
     getVariantBuilder(lampRegistryObject.get())
         .forAllStates(
             state -> {
