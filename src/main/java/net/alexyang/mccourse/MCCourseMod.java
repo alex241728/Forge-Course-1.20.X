@@ -2,6 +2,7 @@ package net.alexyang.mccourse;
 
 import com.mojang.logging.LogUtils;
 import net.alexyang.mccourse.block.ModBlocks;
+import net.alexyang.mccourse.component.ModDataComponentTypes;
 import net.alexyang.mccourse.enchantment.ModEnchantments;
 import net.alexyang.mccourse.item.ModCreativeModeTabs;
 import net.alexyang.mccourse.item.ModItems;
@@ -70,12 +71,10 @@ public class MCCourseMod {
     IEventBus modEventBus = context.getModEventBus();
 
     ModItems.register(modEventBus);
-
     ModBlocks.register(modEventBus);
-
     ModCreativeModeTabs.register(modEventBus);
-
     ModEnchantments.register(modEventBus);
+    ModDataComponentTypes.register(modEventBus);
 
     // Register the commonSetup method for modloading
     modEventBus.addListener(this::commonSetup);

@@ -22,6 +22,9 @@ public class ModItems {
       ITEMS.register(
           "metal_detector", () -> new MetalDetectorItem(new Item.Properties().durability(5)));
 
+  public static final RegistryObject<Item> DATA_TABLET =
+      ITEMS.register("data_tablet", () -> new DataTabletItem(new Item.Properties().stacksTo(1)));
+
   public static final RegistryObject<Item> KOHLRABI =
       ITEMS.register(
           "kohlrabi", () -> new Item(new Item.Properties().food(ModFoodProperties.KOHLRABI)));
