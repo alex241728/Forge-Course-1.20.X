@@ -1,9 +1,13 @@
 package net.alexyang.mccourse.item.custom;
 
+import net.alexyang.mccourse.component.ModDataComponentTypes;
+import net.alexyang.mccourse.item.ModItems;
+import net.alexyang.mccourse.util.InventoryUtil;
 import net.alexyang.mccourse.util.ModTags;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,74 +25,112 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class MetalDetectorItem extends Item {
-    public MetalDetectorItem(Properties pProperties) {
-        super(pProperties);
+  public MetalDetectorItem(Properties pProperties) {
+    super(pProperties);
+  }
+
+  @Override
+  public @NotNull InteractionResult useOn(UseOnContext pContext) {
+    Player player = pContext.getPlayer();
+
+    if (player == null) {
+      return InteractionResult.FAIL;
     }
 
-    @Override
-    public @NotNull InteractionResult useOn(UseOnContext pContext) {
-        Player player = pContext.getPlayer();
+    ItemStack itemStack = player.getItemInHand(player.getUsedItemHand());
 
-        if (player == null) {
-            return InteractionResult.FAIL;
+    if (!pContext.getLevel().isClientSide()) {
+      BlockPos positionClicked = pContext.getClickedPos();
+      boolean foundBlock = false;
+
+      for (int i = 0; i <= positionClicked.getY() + 64; i++) {
+        BlockState blockState = pContext.getLevel().getBlockState(positionClicked.below(i));
+
+        if (isValuableBlock(blockState)) {
+          outputValuableCoordinates(positionClicked.below(i), player, blockState.getBlock());
+          foundBlock = true;
+
+          if (InventoryUtil.hasPlayerStackInventory(player, ModItems.DATA_TABLET.get())) {
+            addDataToDataTablet(player, positionClicked.below(i), blockState.getBlock());
+          }
+
+          break;
         }
+      }
 
-        ItemStack itemStack = player.getItemInHand(player.getUsedItemHand());
+      if (!foundBlock) {
+        outputNoValuableFound(player);
+      }
 
-        if(!pContext.getLevel().isClientSide()) {
-            BlockPos positionClicked = pContext.getClickedPos();
-            boolean foundBlock = false;
-
-            for(int i = 0; i <= positionClicked.getY() + 64; i++) {
-                BlockState blockState = pContext.getLevel().getBlockState(positionClicked.below(i));
-
-                if(isValuableBlock(blockState)) {
-                    outputValuableCoordinates(positionClicked.below(i), player, blockState.getBlock());
-                    foundBlock = true;
-                }
-            }
-
-            if(!foundBlock) {
-                outputNoValuableFound(player);
-            }
-
-            player.sendSystemMessage(Component.literal(
-                    "=====================================================")
-            );
-        }
-
-        if (itemStack.isEmpty()) {
-            ForgeEventFactory.onPlayerDestroyItem(player, itemStack, LivingEntity.getSlotForHand(player.getUsedItemHand()));
-        }
-        else {
-            itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
-        }
-
-        return InteractionResult.SUCCESS;
+      player.sendSystemMessage(
+          Component.literal("====================================================="));
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pLevel,
-                                @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        if (Screen.hasShiftDown()) {
-            pTooltipComponents.add(Component.translatable("tooltip.mccourse.metal_detector.tooltip.shift"));
-        }
-        else {
-            pTooltipComponents.add(Component.translatable("tooltip.mccourse.metal_detector.tooltip"));
-        }
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    if (itemStack.isEmpty()) {
+      ForgeEventFactory.onPlayerDestroyItem(
+          player, itemStack, LivingEntity.getSlotForHand(player.getUsedItemHand()));
+    } else {
+      itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
     }
 
-    private void outputNoValuableFound(Player player) {
-        player.sendSystemMessage(Component.translatable("item.mccourse.metal_detector.no_valuables"));
-    }
+    return InteractionResult.SUCCESS;
+  }
 
-    private void outputValuableCoordinates(BlockPos below, Player player, Block block) {
-        player.sendSystemMessage(Component.literal("Valuable Found: " + I18n.get(block.getDescriptionId()) +
-                " at (" + below.getX() + ", " + below.getY() + ", " + below.getZ() + ")"));
-    }
+  private void addDataToDataTablet(Player player, BlockPos below, Block block) {
+    ItemStack dataTablet =
+        player
+            .getInventory()
+            .getItem(InventoryUtil.getFirstInventoryIndex(player, ModItems.DATA_TABLET.get()));
 
-    private boolean isValuableBlock(BlockState blockState) {
-        return blockState.is(ModTags.Blocks.METAL_DETECTOR_VALUABLES);
+    CompoundTag data = new CompoundTag();
+    data.putString(
+        "mccourse.found_ore",
+        "Valuable Found: "
+            + I18n.get(block.getDescriptionId())
+            + " at ("
+            + below.getX()
+            + ", "
+            + below.getY()
+            + ", "
+            + below.getZ()
+            + ")");
+    CustomData.set(ModDataComponentTypes.COORDINATES, dataTablet, data);
+  }
+
+  @Override
+  public void appendHoverText(
+      @NotNull ItemStack pStack,
+      @NotNull TooltipContext pLevel,
+      @NotNull List<Component> pTooltipComponents,
+      @NotNull TooltipFlag pIsAdvanced) {
+    if (Screen.hasShiftDown()) {
+      pTooltipComponents.add(
+          Component.translatable("tooltip.mccourse.metal_detector.tooltip.shift"));
+    } else {
+      pTooltipComponents.add(Component.translatable("tooltip.mccourse.metal_detector.tooltip"));
     }
+    super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+  }
+
+  private void outputNoValuableFound(Player player) {
+    player.sendSystemMessage(Component.translatable("item.mccourse.metal_detector.no_valuables"));
+  }
+
+  private void outputValuableCoordinates(BlockPos below, Player player, Block block) {
+    player.sendSystemMessage(
+        Component.literal(
+            "Valuable Found: "
+                + I18n.get(block.getDescriptionId())
+                + " at ("
+                + below.getX()
+                + ", "
+                + below.getY()
+                + ", "
+                + below.getZ()
+                + ")"));
+  }
+
+  private boolean isValuableBlock(BlockState blockState) {
+    return blockState.is(ModTags.Blocks.METAL_DETECTOR_VALUABLES);
+  }
 }
