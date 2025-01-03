@@ -1,7 +1,6 @@
 package net.alexyang.mccourse.item.custom;
 
 import net.alexyang.mccourse.component.ModDataComponentTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -16,8 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-import static net.alexyang.mccourse.util.DataComponentUtil.hasTag;
-
 public class DataTabletItem extends Item {
   public DataTabletItem(Properties pProperties) {
     super(pProperties);
@@ -26,17 +23,16 @@ public class DataTabletItem extends Item {
   @Override
   public @NotNull InteractionResultHolder<ItemStack> use(
       @NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
-    if (!hasTag(pPlayer.getItemInHand(pUsedHand), ModDataComponentTypes.COORDINATES)) {
-      CustomData.set(
-          ModDataComponentTypes.COORDINATES, pPlayer.getItemInHand(pUsedHand), new CompoundTag());
+    ItemStack stack = pPlayer.getItemInHand(pUsedHand);
+    if (!stack.has(ModDataComponentTypes.COORDINATES)) {
+      stack.set(ModDataComponentTypes.COORDINATES, CustomData.EMPTY);
     }
-
     return super.use(pLevel, pPlayer, pUsedHand);
   }
 
   @Override
   public boolean isFoil(@NotNull ItemStack pStack) {
-    return hasTag(pStack, ModDataComponentTypes.COORDINATES);
+    return pStack.has(ModDataComponentTypes.COORDINATES);
   }
 
   @Override
@@ -47,7 +43,7 @@ public class DataTabletItem extends Item {
       @NotNull TooltipFlag pTooltipFlag) {
     if (pStack.has(ModDataComponentTypes.COORDINATES)) {
       String currentFoundOre =
-          Objects.requireNonNull(pStack.getComponents().get(ModDataComponentTypes.COORDINATES))
+          Objects.requireNonNull(pStack.get(ModDataComponentTypes.COORDINATES))
               .copyTag()
               .getString("mccourse.found_ore");
       pTooltipComponents.add(Component.literal(currentFoundOre));
