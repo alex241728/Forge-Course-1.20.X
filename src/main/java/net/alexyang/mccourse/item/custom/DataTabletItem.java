@@ -1,7 +1,6 @@
 package net.alexyang.mccourse.item.custom;
 
 import net.alexyang.mccourse.component.ModDataComponentTypes;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
+
+import static net.alexyang.mccourse.util.DataComponentUtil.hasTag;
 
 public class DataTabletItem extends Item {
   public DataTabletItem(Properties pProperties) {
@@ -52,10 +53,5 @@ public class DataTabletItem extends Item {
       pTooltipComponents.add(Component.literal(currentFoundOre));
     }
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-  }
-
-  private boolean hasTag(ItemStack stack, DataComponentType<CustomData> dataComponentType) {
-    CustomData data = stack.getComponents().get(dataComponentType);
-    return data != null && !data.copyTag().isEmpty();
   }
 }

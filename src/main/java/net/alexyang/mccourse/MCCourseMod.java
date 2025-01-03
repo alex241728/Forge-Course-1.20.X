@@ -5,6 +5,7 @@ import net.alexyang.mccourse.block.ModBlocks;
 import net.alexyang.mccourse.component.ModDataComponentTypes;
 import net.alexyang.mccourse.enchantment.ModEnchantments;
 import net.alexyang.mccourse.item.ModCreativeModeTabs;
+import net.alexyang.mccourse.item.ModItemProperties;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -136,6 +137,8 @@ public class MCCourseMod {
   @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
   public static class ClientModEvents {
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {}
+    public static void onClientSetup(FMLClientSetupEvent event) {
+      ModItemProperties.addCustomItemProperties();
+    }
   }
 }
