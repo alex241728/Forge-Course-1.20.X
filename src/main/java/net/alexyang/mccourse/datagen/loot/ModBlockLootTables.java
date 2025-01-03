@@ -1,11 +1,15 @@
 package net.alexyang.mccourse.datagen.loot;
 
 import net.alexyang.mccourse.block.ModBlocks;
+import net.alexyang.mccourse.block.custom.KohlrabiCropBlock;
 import net.alexyang.mccourse.item.ModItems;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,6 +61,19 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     SLABS.forEach(block -> this.add(block.get(), createSlabItemTable(block.get())));
 
     DOORS.forEach(block -> this.add(block.get(), createDoorTable(block.get())));
+
+    LootItemCondition.Builder lootItemConditionBuilder =
+        LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.KOHLRABI_CROP.get())
+            .setProperties(
+                StatePropertiesPredicate.Builder.properties()
+                    .hasProperty(KohlrabiCropBlock.AGE, KohlrabiCropBlock.MAX_AGE));
+    this.add(
+        ModBlocks.KOHLRABI_CROP.get(),
+        this.createCropDrops(
+            ModBlocks.KOHLRABI_CROP.get(),
+            ModItems.KOHLRABI.get(),
+            ModItems.KOHLRABI_SEEDS.get(),
+            lootItemConditionBuilder));
   }
 
   @Override
