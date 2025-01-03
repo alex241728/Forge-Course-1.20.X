@@ -2,6 +2,7 @@ package net.alexyang.mccourse.block;
 
 import net.alexyang.mccourse.MCCourseMod;
 import net.alexyang.mccourse.block.custom.AlexandriteLampBlock;
+import net.alexyang.mccourse.block.custom.KohlrabiCropBlock;
 import net.alexyang.mccourse.block.custom.SoundBlock;
 import net.alexyang.mccourse.item.ModItems;
 import net.minecraft.core.BlockPos;
@@ -269,6 +270,13 @@ public class ModBlocks {
                       .strength(0.3F)
                       .sound(SoundType.GLASS)
                       .isValidSpawn(ModBlocks::always)));
+
+  public static final RegistryObject<Block> KOHLRABI_CROP =
+      BLOCKS.register(
+          "kohlrabi_crop",
+          () ->
+              new KohlrabiCropBlock(
+                  BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).noCollission().noOcclusion()));
 
   private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
     RegistryObject<T> toReturn = BLOCKS.register(name, block);

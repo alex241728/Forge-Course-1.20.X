@@ -2,9 +2,11 @@ package net.alexyang.mccourse.datagen;
 
 import net.alexyang.mccourse.MCCourseMod;
 import net.alexyang.mccourse.block.ModBlocks;
+import net.alexyang.mccourse.block.custom.KohlrabiCropBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -16,6 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
   private static final List<RegistryObject<Block>> BLOCKS_WITH_ITEM =
@@ -113,6 +116,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     LAMPS.forEach((lamp) -> lampBlock(lamp));
 
+    customCrop((CropBlock) ModBlocks.KOHLRABI_CROP.get(), "kohlrabi_stage", "kohlrabi_stage");
+
     doorBlockWithRenderType(
         (DoorBlock) ModBlocks.ALEXANDRITE_DOOR.get(),
         modLoc("block/alexandrite_door_bottom"),
@@ -125,6 +130,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
         true,
         "cutout");
     blockItem(ModBlocks.ALEXANDRITE_TRAPDOOR, "_bottom");
+  }
+
+  private void customCrop(CropBlock block, String modelName, String textureName) {
+    Function<BlockState, ConfiguredModel[]> function =
+        state -> states(state, block, modelName, textureName);
+    getVariantBuilder(block).forAllStates(function);
+  }
+
+  private ConfiguredModel[] states(
+      BlockState state, CropBlock block, String modelName, String textureName) {
+    ConfiguredModel[] models = new ConfiguredModel[1];
+    models[0] =
+        new ConfiguredModel(
+            models()
+                .crop(
+                    modelName + state.getValue(((KohlrabiCropBlock) block).getAgeProperty()),
+                    new ResourceLocation(
+                        MCCourseMod.MOD_ID,
+                        "block/"
+                            + textureName
+                            + state.getValue(((KohlrabiCropBlock) block).getAgeProperty())))
+                .renderType("cutout"));
+    return models;
   }
 
   private void lampBlock(RegistryObject<Block> lampRegistryObject) {

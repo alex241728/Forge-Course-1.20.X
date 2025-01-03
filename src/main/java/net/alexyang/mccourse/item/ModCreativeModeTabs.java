@@ -36,7 +36,8 @@ public class ModCreativeModeTabs {
           ModItems.ALEXANDRITE_LEGGING,
           ModItems.ALEXANDRITE_BOOTS,
           ModItems.ALEXANDRITE_HORSE_ARMOR,
-          ModItems.DATA_TABLET);
+          ModItems.DATA_TABLET,
+          ModItems.KOHLRABI_SEEDS);
 
   private static final List<RegistryObject<Block>> MOD_BLOCKS =
       List.of(
